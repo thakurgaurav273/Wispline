@@ -1,0 +1,167 @@
+<div class="chat-message-bubble__wrapper" [ngClass]="getBubbleClassName()" #messageBubble>
+  @if (message.getDeletedAt()) {} @else { @switch (message?.category) { @case
+  ('action') { @if (message.type !== 'message') {
+  <ng-container>
+    <app-action-bubble [message]="message"></app-action-bubble>
+  </ng-container>
+  }@else {
+  <div></div>
+  } } @case ('call') {
+  <ng-container>
+    <app-call-bubble [message]="message" [loggedInUserId]="loggedInUserId"></app-call-bubble>
+  </ng-container>
+  } @case ('custom') { @if (leadingView) {
+  <ng-container *ngComponentOutlet="leadingView"></ng-container>
+  }@else {
+  <ng-container [ngTemplateOutlet]="defaultLeadingView"></ng-container>
+  }
+  <div class="meeting-wrapper">
+    @if (headerView) {
+    <ng-container *ngComponentOutlet="headerView"></ng-container>
+    } @else {
+    <ng-container [ngTemplateOutlet]="defaultHeaderView"></ng-container>
+    }
+    <ng-container>
+      <app-meeting-bubble [message]="message" [loggedInUserId]="loggedInUserId"></app-meeting-bubble>
+    </ng-container>
+  </div>
+  } @case ('message') { @if (leadingView) {
+  <ng-container *ngComponentOutlet="leadingView; context:{
+    message: message,
+    leadingView: defaultLeadingView
+  }"></ng-container>
+  }@else {
+  <ng-container [ngTemplateOutlet]="defaultLeadingView"></ng-container>
+  }
+  <div class="chat-message-bubble__inner" (mouseleave)="!showMoreOptions && hideMessageOptions()">
+    @if (headerView) {
+    <ng-container *ngComponentOutlet="headerView"></ng-container>
+    } @else {
+    <ng-container [ngTemplateOutlet]="defaultHeaderView"></ng-container>
+    }
+    <div class="chat-message-bubble__body-wrapper" (clickOutside)="hideMessageOptions()">
+      <div style="display: flex; flex-direction: column">
+        <div class="message-bubble-options">
+          <div #contentViewRef class="chat-message-bubble__body" [ngClass]="bubbleTypeClass"
+            (mouseenter)="showMessageOptions()">
+            @if (contentView) {
+            <ng-container [ngTemplateOutlet]="contentView" [ngTemplateOutletContext]="{ $implicit: message }">
+            </ng-container>
+            }@else {
+            <ng-container [ngTemplateOutlet]="defaultContent"></ng-container>
+            } @if (statusInfoView) {
+            <ng-container [ngTemplateOutlet]="statusInfoView" [ngTemplateOutletContext]="{ $implicit: message }">
+            </ng-container>
+            }@else {
+            <ng-container [ngTemplateOutlet]="defaultStatusInfo"></ng-container>
+            }
+          </div>
+          <div class="chat-message-bubble__options" [style.visibility]="
+              (showOptions || showEmojiKeyboard) &&
+              !isThreadParentBubble &&
+              !message.getDeletedAt() &&
+              message.category !== 'call' &&
+              message.category !== 'action'
+                ? 'visible'
+                : 'hidden'
+            ">
+            <div style="position: relative">
+              <app-context-menu [scrollContainer]="scrollContainer" *ngIf="options?.length" [data]="options"
+                [topMenuSize]="2" (openMenu)="toggleMoreOptions()" [moreIconHoverText]="'More options'"
+                (optionClicked)="handleMoreOptionClick($event)">
+              </app-context-menu>
+            </div>
+            <div *ngIf="showEmojiKeyboard" class="emoji-keyboard-wrapper">
+              <app-emoji-picker (emojiSelected)="addReaction($event)"></app-emoji-picker>
+            </div>
+          </div>
+        </div>
+
+        @if (footerView) {
+        <ng-container *ngComponentOutlet="footerView"></ng-container>
+        } @else {
+        <ng-container [ngTemplateOutlet]="defaultFooterView"></ng-container>
+        }
+
+        <ng-container>
+          @if (threadView) {
+          <ng-container *ngComponentOutlet="threadView"></ng-container>
+          } @else {
+          <ng-container [ngTemplateOutlet]="defaultThreadView"></ng-container>
+          }
+        </ng-container>
+        @if (bottomView) {
+        <ng-container *ngComponentOutlet="bottomView"></ng-container>
+        }@else { }
+      </div>
+    </div>
+  </div>
+  } } }
+</div>
+
+<ng-template #defaultStatusInfo>
+  <app-status-view *ngIf="!message.getDeletedAt()" [message]="message"
+    [loggedInUserId]="loggedInUserId"></app-status-view>
+</ng-template>
+
+<ng-template #defaultContent>
+  @switch (message?.type) { @case ('text') {
+  <div class="bubble-text">
+    <app-text-bubble [message]="message"></app-text-bubble>
+  </div>
+  } @case ('image') {
+  <div class="bubble-image">
+    <app-image-bubble [message]="message"></app-image-bubble>
+  </div>
+  }
+  @case ('audio') {
+  <div class="bubble-audio">
+    <app-cometchat-audio-bubble [src]="message?.data.attachments[0].url"
+      [isSentByMe]="message.getSender().getUid() === loggedInUserId"></app-cometchat-audio-bubble>
+  </div>
+  }
+  @case ('video') {
+  <div class="bubble-video">
+    <app-video-bubble [message]="message"></app-video-bubble>
+  </div>
+  } @default {
+  <div class="bubble-default">
+    {{ message?.data?.text || "Unsupported message" }}
+  </div>
+  } }
+</ng-template>
+
+<ng-template #defaultThreadView>
+  <div *ngIf="
+      message.replyCount > 0 && !isThreadParentBubble && listType !== 'thread'
+    " class="thread-reply" (click)="openThread()">
+    <img src="assets/reply_in_thread.svg" alt="Thread" class="thread-icon" />
+    <span class="reply-count">{{ message.replyCount }} Replies</span>
+  </div>
+</ng-template>
+<ng-template #defaultHeaderView>
+  @if ((showSenderName && message.getSender().getUid() !== loggedInUserId) ||
+  (showUserName && message.getSender().getUid() === loggedInUserId)) {
+  <p class="headerView" [style.color]="color">
+    {{ message.getSender().getName() }}
+  </p>
+  }
+</ng-template>
+
+<ng-template #defaultFooterView>
+  <app-cometchat-reactions [message]="message" [isThreadParentBubble]="isThreadParentBubble"
+    (reactionAdded)="onReactionAdded($event)" (reactionRemoved)="onReactionRemoved($event)">
+  </app-cometchat-reactions>
+</ng-template>
+
+<ng-template #defaultLeadingView>
+  @if ((showAvatar && message.getSender().getUid() !== loggedInUserId) ||
+  (showUserAvatar && message.getSender().getUid() === loggedInUserId)) {
+  <app-avatar [avatarStyle]="{
+      height: 32,
+      width: 32
+    }" [avatarUrl]="message.getSender().getAvatar()" [name]="message.getSender().getName()"></app-avatar>
+  }
+</ng-template>
+
+<div class="copied-toast" *ngIf="copied">Message copied!</div>

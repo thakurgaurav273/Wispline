@@ -1,0 +1,195 @@
+/* Base audio bubble container */
+.chat-audio-bubble {
+    border: none;
+    display: flex;
+    background: transparent;
+    /* padding: var(--chat-padding-2, 8px) var(--chat-padding-2, 8px) 0px var(--chat-padding-2, 8px); */
+    flex-direction: row;
+    align-items: center;
+    align-self: stretch;
+    border-radius: var(--chat-radius-3, 12px);
+    max-width: 240px;
+    width: 240px;
+}
+
+/* Main content wrapper inside audio bubble */
+.chat-audio-bubble > div:not([class]) {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--chat-padding-2, 8px);
+    flex: 1 0 0;
+    width: 100%;
+}
+
+/* Leading view container (play/pause button) with rounded background */
+.chat-audio-bubble__leading-view {
+    background: var(--chat-static-white);
+    cursor: pointer;
+    display: flex;
+    width: 32px;
+    border-radius: var(--chat-radius-max, 1000px);
+    height: 32px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* Play button icon */
+.chat-audio-bubble__leading-view-play {
+    mask: url("../../../assets/play_arrow.svg") center center no-repeat;
+    -webkit-mask: url("../../../assets/play_arrow.svg") center center no-repeat;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    height: 24px;
+    width: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--chat-primary-color);
+    cursor: pointer;
+}
+
+/* Pause button icon */
+.chat-audio-bubble__leading-view-pause {
+    mask: url("../../../assets/pause.svg") center center no-repeat;
+    -webkit-mask: url("../../../assets/pause.svg") center center no-repeat;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    height: 24px;
+    width: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--chat-primary-color);
+    cursor: pointer;
+}
+
+/* Body of the audio bubble, containing waveform and time display */
+.chat-audio-bubble__body {
+    padding: 0px var(--chat-padding-2, 8px) 0px var(--chat-padding-3, 12px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: var(--chat-padding, 4px);
+    flex: 1;
+    min-width: 0;
+}
+
+/* Waveform container inside the audio bubble body */
+.chat-audio-bubble__body-wave {
+    height: 24px;
+    display: block;
+    width: 140px;
+    position: relative;
+}
+
+/* Time display (current time / duration) inside the audio bubble body */
+.chat-audio-bubble__body-time {
+    color: var(--chat-static-white);
+    font: var(--chat-font-caption2-regular, 12px/16px sans-serif);
+    width: 100%;
+    text-align: left;
+    white-space: nowrap;
+}
+
+/* Tail view container (download button area) */
+.chat-audio-bubble__tail-view {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Download icon for the tail view (right side of the audio bubble) */
+.chat-audio-bubble__tail-view-download {
+    mask: url("../../../assets/download.svg") center center no-repeat;
+    -webkit-mask: url("../../../assets/download.svg") center center no-repeat;
+    display: flex;
+    width: 24px;
+    height: 24px;
+    justify-content: center;
+    align-items: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    cursor: pointer;
+    background: var(--chat-static-white);
+}
+
+/* Container for download progress circle (24x24 size) */
+.chat-audio-bubble__tail-view-download-progress {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+/* Rotate the SVG progress circle for correct start position */
+.chat-audio-bubble__tail-view-download-progress svg {
+    width: 24px;
+    height: 24px;
+    transform: rotate(-90deg);
+}
+
+/* Close/stop icon inside the progress view (positioned in the center) */
+.chat-audio-bubble__tail-view-download-stop {
+    mask: url("../../../assets/close.svg") center center no-repeat;
+    -webkit-mask: url("../../../assets/close.svg") center center no-repeat;
+    background: var(--chat-static-white);
+    display: flex;
+    width: 15px;
+    height: 15px;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    cursor: pointer;
+}
+
+/* Background circle of the download progress indicator */
+circle.chat-audio-bubble__tail-view-download-progress-background {
+    stroke: var(--chat-static-white);
+    stroke-dasharray: 113 113;
+    opacity: 0.2;
+    stroke-width: 2;
+    fill: none;
+}
+
+/* Foreground circle that indicates download progress */
+circle.chat-audio-bubble__tail-view-download-progress-foreground {
+    stroke: var(--chat-static-white);
+    stroke-dasharray: 0 113;
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+}
+/* Tail view download button for incoming audio bubble */
+.chat-audio-bubble-incoming .chat-audio-bubble__tail-view-download {
+    background: var(--chat-primary-color);
+}
+
+/* Background circle for download progress in incoming bubble */
+.chat-audio-bubble-incoming circle.chat-audio-bubble__tail-view-download-progress-background {
+    stroke: var(--chat-primary-color);
+    opacity: 0.2;
+}
+
+/* Foreground circle for download progress in incoming bubble */
+.chat-audio-bubble-incoming circle.chat-audio-bubble__tail-view-download-progress-foreground {
+    stroke: var(--chat-primary-color);
+}
+
+/* Stop download icon for incoming audio bubble */
+.chat-audio-bubble-incoming .chat-audio-bubble__tail-view-download-stop {
+    background: var(--chat-primary-color);
+}
+
+/* Time display in incoming audio bubble */
+.chat-audio-bubble-incoming .chat-audio-bubble__body-time {
+    color: var(--chat-neutral-color-600);
+}

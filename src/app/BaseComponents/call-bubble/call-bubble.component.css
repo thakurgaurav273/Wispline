@@ -1,0 +1,19 @@
+.chat-message-bubble__call 
+  .chat-message-bubble__wrapper.chat-message-bubble-outgoing {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background-color: unset !important;
+}
+
+.call-action-bubble {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    color: #a1a1a1;
+    border: 1px solid #ddd8d8;
+    background-color: #f7f7f7;
+    border-radius: 20px;
+    padding: 4px 16px;
+  }

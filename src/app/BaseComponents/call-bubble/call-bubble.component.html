@@ -1,0 +1,41 @@
+@switch (message.getData()?.action) {
+@case ('initiated') {
+<!--  Call Initiated -->
+<div class="chat-message-list__bubble-date-header">
+  <div class="date-separator call-action-bubble">
+    <!-- <img src="assets/phone_outgoing_no_fill.svg"/> -->
+    <app-icon
+      [iconUrl]="message.getSender().getUid() === loggedInUserId ? 'assets/phone_outgoing_no_fill.svg': 'assets/phone_incoming_no_fill.svg'"
+      [color]="'#a1a1a1'"></app-icon>
+    {{message.getSender().getUid() === loggedInUserId ? 'Outgoing Call' : 'Incoming Call'}}
+  </div>
+</div>
+}
+@case ('cancelled') {
+<div class="chat-message-list__bubble-date-header">
+  <div class="date-separator call-action-bubble">
+    <!-- <img src="assets/phone_outgoing_no_fill.svg"/> -->
+    <app-icon
+      [iconUrl]="message.getSender().getUid() === loggedInUserId ? 'assets/phone_outgoing_no_fill.svg': 'assets/phone_incoming_no_fill.svg'"
+      [color]="'#a1a1a1'"></app-icon>
+    {{message.getSender().getUid() === loggedInUserId ? 'Cancelled Call' : 'Missed Call'}}
+  </div>
+</div>
+}
+@case ('ongoing') {
+<div class="chat-message-list__bubble-date-header">
+  <div class="date-separator call-action-bubble">
+    <app-icon [iconUrl]="'assets/audio_call_button.svg'" [color]="'#a1a1a1'"></app-icon>
+    Call Accepted
+  </div>
+</div>
+}
+@case ('ended') {
+<div class="chat-message-list__bubble-date-header">
+  <div class="date-separator call-action-bubble">
+    <app-icon [iconUrl]="'assets/call_end_no_fill.svg'" [color]="'#a1a1a1'"></app-icon>
+    {{'Call Ended'}}
+  </div>
+</div>
+}
+}

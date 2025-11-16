@@ -1,0 +1,16 @@
+<div class="message-bubble">
+    <!-- <p *ngIf="!message.getDeletedAt()" class="text-message-wrapper"
+        [innerHTML]="message.getData().text | formatMentions:message.getData().mentions" (click)="onMentionClicked($event)">
+    </p> -->
+
+    <!-- <div *ngIf="!message.getDeletedAt()" formatterType="combined" [appTextFormatter]="message.getData().text" [mentions]="message.getData().mentions"></div> -->
+
+    <div *ngIf="!message.getDeletedAt()" appTextFormattingManager
+        [appTextFormattingManager]="message.getData().text" [formatterData]="{ mentions: message.getData().mentions }" appMentionsFormatter
+        appUrlFormatter></div>
+
+</div>
+
+<p *ngIf="message.getDeletedAt()" class="text-message-wrapper deleted_bubble">
+    Message is deleted
+</p>

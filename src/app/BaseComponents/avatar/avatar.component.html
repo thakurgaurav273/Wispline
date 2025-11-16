@@ -1,0 +1,17 @@
+<div class="avatar-wrapper">
+    <img
+      *ngIf="avatarUrl"
+      class="avatar-style"
+      [src]="avatarUrl"
+      [alt]="name"
+      [ngStyle]="getAvatarStyles()"
+    />
+  
+    <p
+      *ngIf="!avatarUrl"
+      class="avatar-style avatar-text"
+      [ngStyle]="getAvatarStyles()"
+    >
+      {{ name | initialsPipe }}
+    </p>
+  </div>

@@ -1,0 +1,67 @@
+<div class="emoji-picker">
+    <!-- Search Bar -->
+    <div class="search-container">
+      <input 
+        type="text" 
+        placeholder="Search emoji" 
+        [(ngModel)]="searchQuery"
+        (input)="onSearch()"
+        class="search-input"
+      />
+    </div>
+
+    <!-- Category Navigation -->
+    <div class="category-nav" *ngIf="!searchQuery">
+      <button 
+        *ngFor="let category of categories" 
+        [class.active]="activeCategory === category.key"
+        (click)="scrollToCategory(category.key)"
+        class="category-btn"
+        [title]="category.name"
+      >
+        {{ category.icon }}
+      </button>
+    </div>
+
+    <!-- Emoji Grid -->
+    <div class="emoji-content" #emojiContent>
+      <div *ngIf="searchQuery && filteredEmojis.length === 0" class="no-results">
+        No emojis found for "{{ searchQuery }}"
+      </div>
+
+      <!-- Search Results -->
+      <div *ngIf="searchQuery" class="emoji-section">
+        <div class="emoji-grid">
+          <button 
+            *ngFor="let emoji of filteredEmojis" 
+            (click)="selectEmoji(emoji)"
+            class="emoji-btn"
+            [title]="emoji.name"
+          >
+            {{ emoji.emoji }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Category Sections -->
+      <div *ngIf="!searchQuery">
+        <div 
+          *ngFor="let category of categories" 
+          [attr.data-category]="category.key"
+          class="emoji-section"
+        >
+          <h3 class="category-title">{{ category.name }}</h3>
+          <div class="emoji-grid">
+            <button 
+              *ngFor="let emoji of getEmojisByCategory(category.key)" 
+              (click)="selectEmoji(emoji)"
+              class="emoji-btn"
+              [title]="emoji.name"
+            >
+              {{ emoji.emoji }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

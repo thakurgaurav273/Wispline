@@ -1,0 +1,4 @@
+<img (click)="showFullScreenImage()" *ngIf="!message.getDeletedAt()" [src]="message.getData().attachments[0].url ?? 'assets/image_placeholder.png'" class="message-image" alt="image message" />
+<div *ngIf="message.getDeletedAt()">
+    Message is deleted
+</div>

@@ -1,0 +1,195 @@
+<!-- <div class="message-composer-container">
+    <div class="mention-dropdown" *ngIf="showMentionDropdown && filteredUsers.length > 0">
+        <div class="mention-list" *ngIf="!mentionsListLoading">
+            <div class="mention-item" *ngFor="let user of filteredUsers; let i = index"
+                [class.selected]="i === selectedMentionIndex" (click)="selectMention(user)">
+                <div class="user-avatar">
+                    <app-avatar [avatarUrl]="user.getAvatar()" [name]="user.getAvatar()" [avatarStyle]="{
+                        height: 35,
+                        width: 35,
+                    }"></app-avatar>
+                </div>
+                <div class="user-info">
+                    <span class="user-name">{{ user.getName() }}</span>
+                </div>
+            </div>
+        </div>
+        <app-users-shimmer *ngIf="mentionsListLoading" [itemCount]="4" [shouldShowStatus]="false" [avatarStyle]="{
+            height: 35,
+            width: 35,
+        }"></app-users-shimmer>
+    </div>
+
+    <div class="composer-inner">
+        <div class="edit-preview-wrapper" [class.show]="editingMessage">
+            <div class="edit-preview">
+                <div class="edit-preview-header">
+                    <div class="edit-preview-content">
+                        <p class="edit-label">Edit message</p>
+                        {{ editingMessage?.text }}
+                    </div>
+                    <button class="close-edit-btn" (click)="cancelEdit()" title="Cancel edit">
+                        ✕
+                    </button>
+                </div>
+            </div>
+        </div>
+        <textarea #messageTextarea [(ngModel)]="messageText" (input)="onTextareaInput($event)"
+            (keydown)="onTextareaKeydown($event)" class="composer-textarea"
+            [placeholder]="editingMessage ? 'Edit your message...' : 'Type a message...'" rows="1"
+            (keydown.enter)="sendMessage($event)">
+        </textarea>
+        <div class="bottom-wrapper">
+            <div class="secondary-button">
+                <div class="attachment-option" (clickOutside)="closeAttachOptions()">
+                    <div *ngIf="showAttachOptions" class="attach-options-modal">
+                        <button (click)="handleFilePick('image')" class="attach-option"> <app-icon
+                                [iconUrl]="'assets/photo.svg'" color="var(--chat-primary-color)"></app-icon>
+                            Image</button>
+                        <button (click)="handleFilePick('video')" class="attach-option"> <app-icon
+                                [iconUrl]="'assets/videocam.svg'" color="var(--chat-primary-color)"></app-icon>
+                            Video</button>
+                        <button (click)="handleFilePick('audio')" class="attach-option"> <app-icon
+                                [iconUrl]="'assets/play_circle.svg'" color="var(--chat-primary-color)"></app-icon>
+                            Audio</button>
+                        <button (click)="handleFilePick('file')" class="attach-option"> <app-icon
+                                [iconUrl]="'assets/document_icon.svg'" color="var(--chat-primary-color)"></app-icon>
+                            File</button>
+                    </div>
+                    <button class="composer-btn attach-btn" title="Attach" (click)="toggleAttachOptions($event)">
+                        <app-icon [iconUrl]=" showAttachOptions ?'assets/add_circle_fill.svg' : 'assets/add_circle.svg'"
+                            [hoverColor]="'var(--chat-primary-color)'" [color]="showAttachOptions ? 'var(--chat-primary-color)' : '#a1a1a1'" height="24px"
+                            width="24px"></app-icon>
+                    </button>
+                </div>
+
+                <button class="composer-btn emoji-btn" title="Emoji" (click)="toggleEmojiPicker()">
+                    <app-icon [iconUrl]=" showEmojiPicker ?'assets/mood_fill.svg' : 'assets/mood.svg'"
+                        [hoverColor]="'var(--chat-primary-color)'" [color]="showEmojiPicker ? 'var(--chat-primary-color)' : '#a1a1a1'" height="22px"
+                        width="24px"></app-icon>
+                </button>
+            </div>
+
+            <button class="composer-btn send-btn" [disabled]="!messageText.trim()" (click)="sendMessage()"
+                [title]="editingMessage ? 'Update message' : 'Send'">
+                {{ editingMessage ? '✓' : '➤' }}
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="showEmojiPicker" class="emoji-picker" (clickOutside)="toggleEmojiPicker()">
+        <app-emoji-picker (emojiSelected)="addEmoji($event)"></app-emoji-picker>
+    </div>
+</div> -->
+
+<div class="message-composer-container chat">
+    <div class="mention-dropdown" *ngIf="mentionState.showDropdown && mentionState.filteredUsers.length > 0">
+        <div class="mention-list" *ngIf="!mentionState.loading">
+            <div class="mention-item" *ngFor="let user of mentionState.filteredUsers; let i = index"
+                [class.selected]="i === mentionState.selectedIndex" (click)="selectMention(user)">
+                <div class="user-avatar">
+                    <app-avatar [avatarUrl]="user.getAvatar()" [name]="user.getName()" [avatarStyle]="{
+                        height: 35,
+                        width: 35,
+                    }"></app-avatar>
+                </div>
+                <div class="user-info">
+                    <span class="user-name">{{ user.getName() }}</span>
+                </div>
+            </div>
+        </div>
+        <app-users-shimmer *ngIf="mentionState.loading" [itemCount]="4" [shouldShowStatus]="false" [avatarStyle]="{
+            height: 35,
+            width: 35,
+        }"></app-users-shimmer>
+    </div>
+
+    <div class="composer-inner">
+        <div class="edit-preview-wrapper" [class.show]="editingMessage" *ngIf="editingMessage">
+            <div class="edit-preview">
+                <div class="edit-preview-header">
+                    <div class="edit-preview-content">
+                        <p class="edit-label">Edit message</p>
+                        <p
+                            [innerHTML]="editingMessage.getData().text | formatMentions:editingMessage.getData().mentions">
+                        </p>
+                    </div>
+                    <button class="close-edit-btn" (click)="cancelEdit()" title="Cancel edit">
+                        ✕
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <textarea #messageTextarea [(ngModel)]="displayText" (input)="onTextareaInput($event)"
+            (keydown)="onTextareaKeydown($event)" class="composer-textarea"
+            [placeholder]="editingMessage ? 'Edit your message...' : 'Type a message...'" rows="1">
+        </textarea>
+
+        <div class="bottom-wrapper">
+            <div class="secondary-button">
+                <div class="attachment-option" (clickOutside)="closeAttachOptions()">
+                    <div *ngIf="showAttachOptions" class="attach-options-modal">
+                        <button (click)="handleFilePick('image')" class="attach-option">
+                            <app-icon [iconUrl]="'assets/photo.svg'" color="var(--chat-primary-color)"></app-icon>
+                            Image
+                        </button>
+                        <button (click)="handleFilePick('video')" class="attach-option">
+                            <app-icon [iconUrl]="'assets/videocam.svg'"
+                                color="var(--chat-primary-color)"></app-icon>
+                            Video
+                        </button>
+                        <button (click)="handleFilePick('audio')" class="attach-option">
+                            <app-icon [iconUrl]="'assets/play_circle.svg'"
+                                color="var(--chat-primary-color)"></app-icon>
+                            Audio
+                        </button>
+                        <button (click)="handleFilePick('file')" class="attach-option">
+                            <app-icon [iconUrl]="'assets/document_icon.svg'"
+                                color="var(--chat-primary-color)"></app-icon>
+                            File
+                        </button>
+                    </div>
+                    <button class="composer-btn attach-btn" title="Attach" (click)="toggleAttachOptions($event)">
+                        <app-icon [iconUrl]=" showAttachOptions ?'assets/add_circle_fill.svg' : 'assets/add_circle.svg'"
+                            [hoverColor]="'var(--chat-primary-color)'"
+                            [color]="showAttachOptions ? 'var(--chat-primary-color)' : '#a1a1a1'" height="24px"
+                            width="24px"></app-icon>
+                    </button>
+                </div>
+
+                <ng-template #popoverContent>
+                    <app-cometchat-media-recorder (onCloseRecording)="closeMediaRecorder()"
+                        (onSubmitRecording)="handleAudioRecording($event)">
+                    </app-cometchat-media-recorder>
+                </ng-template>
+                <app-popover [placement]="'bottom'" [showOnHover]="false" [disableBackgroundInteraction]="true"
+                    [triggerTemplate]="popoverButton" [popoverTemplate]="popoverContent"></app-popover>
+                <ng-template style="display: inline; position: absolute;" #popoverButton>
+                    <button class="composer-btn mic-btn" title="Record Audio" #popoverButton
+                        (click)="toggleMediaRecorder()" [class.active]="showMediaRecorder">
+                        <app-icon [iconUrl]="showMediaRecorder ? 'assets/mic_fill.svg' : 'assets/mic.svg'"
+                            [hoverColor]="'var(--chat-primary-color)'"
+                            [color]="showMediaRecorder ? 'var(--chat-primary-color)' : '#a1a1a1'" height="22px"
+                            width="24px"></app-icon>
+                    </button>
+                </ng-template>
+                <button class="composer-btn emoji-btn" title="Emoji" (click)="toggleEmojiPicker()">
+                    <app-icon [iconUrl]=" showEmojiPicker ?'assets/mood_fill.svg' : 'assets/mood.svg'"
+                        [hoverColor]="'var(--chat-primary-color)'"
+                        [color]="showEmojiPicker ? 'var(--chat-primary-color)' : '#a1a1a1'" height="22px"
+                        width="24px"></app-icon>
+                </button>
+            </div>
+
+            <button class="composer-btn send-btn" [disabled]="!displayText.trim()" (click)="sendMessage()"
+                [title]="editingMessage ? 'Update message' : 'Send'">
+                {{ editingMessage ? '✓' : '➤' }}
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="showEmojiPicker" class="emoji-picker" (clickOutside)="toggleEmojiPicker()">
+        <app-emoji-picker (emojiSelected)="addEmoji($event)"></app-emoji-picker>
+    </div>
+</div>

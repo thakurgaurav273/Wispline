@@ -1,0 +1,22 @@
+<div class="login-container">
+  <div class="login-content">
+    <h2>Welcome Back</h2>
+    <p class="subtitle">Select a user or login with your UID</p>
+    
+    <div class="user-list">
+      <div class="user-card" *ngFor="let user of users.users" (click)="loginWithAuthToken(user.authToken)">
+        <img [src]="user.avatar" [alt]="user.name + '\'s avatar'" class="user-avatar">
+        <p>{{ user.name }}</p>
+      </div>
+    </div>
+
+    <div class="divider">
+      <span>OR</span>
+    </div>
+
+    <div class="uid-login">
+      <input type="text" (change)="handleUIDChange($event)" placeholder="Enter your UID" class="uid-input" />
+      <button class="login-button" (click)="handleUIDLogin()">Login</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+<div class="members-container">
+    <div class="search-box">
+        <span class="search-icon"> <app-icon [iconUrl]="'assets/search.svg'"></app-icon>
+        </span>
+        <input type="text" [(ngModel)]="searchTerm" placeholder="Search" />
+    </div>
+    <app-users-shimmer *ngIf="loading || members.length === 0" [itemCount]="8" [shouldShowStatus]="false" [avatarStyle]="{
+        height: 35,
+        width: 35,
+    }"></app-users-shimmer>
+    <div *ngIf="!loading">
+        <div class="member" (mouseenter)="hoveredMember = member.getUid()" (mouseleave)="hoveredMember = null; activeMenu = null;"
+            *ngFor="let member of filteredMembers">
+            <div style="position: relative;">
+                <app-avatar [avatarUrl]="member.getAvatar()" [name]="member.getName()" [avatarStyle]="{
+                    height: 35,
+                    width: 35
+                }"></app-avatar>
+                <div class="online-dot" *ngIf="member.getStatus() === 'online'" title="Online"></div>
+            </div>
+            <div class="info">
+                <div class="name">{{ member.getName()}}</div>
+            </div>
+            <div class="role-badge" *ngIf="member.getScope() === 'admin' && member.getUid() === group?.getOwner()">
+                Owner
+            </div>
+            <!-- Right: Dropdown icon on hover -->
+            <div class="right" *ngIf="group?.getScope() !== 'participant'">
+                <app-icon *ngIf="hoveredMember === member.getUid() && (member.getScope() !== 'admin' || member.getUid() !== group?.getOwner())" iconUrl="assets/keyboard_arrow_down.svg"
+                    (click)="toggleMenu(member.getUid())" class="menu-icon"></app-icon>
+                <!-- Menu -->
+                <div class="menu" *ngIf="activeMenu === member.getUid()">
+                    <div class="menu-item" (click)="kickMember(member)">Kick</div>
+                    <div class="menu-item" (click)="banMember(member)">Ban</div>
+                    <div class="menu-item" (click)="changeScope(member)">Change Scope</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="change-scope-popover" *ngIf="showChangScopePopover">
+    <div class="modal-container">
+        <div class="icon-circle">
+            <img src="assets/change_scope.png" alt="change-scope-icon" height="30px" width="30px"/>
+        </div>
+        <h2>Change Scope</h2>
+        <p class="description">
+          You can change scope for the group member to manage group permissions and responsibilities.
+        </p>
+      
+        <div class="scope-options">
+          <div
+            *ngFor="let scope of scopes"
+            class="scope-option"
+            [class.selected]="scope === selectedScope"
+            (click)="onSelect(scope)"
+          >
+            <span class="scope-label">{{ scope | titlecase }}</span>
+            <input
+              type="radio"
+              [checked]="selectedScope === scope"
+              class="custom-radio"
+              readonly
+            />
+          </div>
+        </div>
+      
+        <div class="buttons">
+          <button class="cancel-btn" (click)="cancel()">Cancel</button>
+          <button
+            class="save-btn"
+            [disabled]="selectedScope === currentScope"
+            (click)="save()"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+</div>

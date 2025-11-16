@@ -1,0 +1,24 @@
+<div class="conversations-with-messages-wrapper">
+    <div class="conversations-list">
+      <app-conversations></app-conversations>
+    </div>
+    <div class="messages" *ngIf="chatWithGroup || chatWithUser">
+      <div class="messages-content">
+        <div class="message-header-wrapper">
+          <app-message-header></app-message-header>
+        </div>
+        <div class="message-list-wrapper">
+          <app-message-list></app-message-list>
+        </div>
+        <div class="message-composer-wrapper">
+          <app-message-composer></app-message-composer>
+        </div>
+      </div>
+      <div class="details-compoenent" *ngIf="showDetails">
+        <app-details></app-details>
+      </div>
+      <div class="thread-replies" *ngIf="showThreadReply">
+        <app-thread-replies></app-thread-replies>
+      </div>
+    </div>
+  </div>

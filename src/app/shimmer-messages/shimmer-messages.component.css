@@ -1,0 +1,75 @@
+.messages-shimmer {
+    padding: 16px;
+    background: var(--chat-background-2);
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .shimmer-message {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  
+  .shimmer-message.own-message {
+    flex-direction: row-reverse;
+  }
+  
+  .shimmer-avatar {
+    width: 40px;
+    height: 40px;
+    background: #d0d0d0;
+    border-radius: 50%;
+    margin-right: 12px;
+    flex-shrink: 0;
+    animation: shimmer 1.5s infinite;
+  }
+  
+  .shimmer-message.own-message .shimmer-avatar {
+    margin-right: 0;
+    margin-left: 12px;
+  }
+  
+  .shimmer-header{
+    height: 15px;
+    background: #d0d0d0;
+    width: 130px;
+    margin: 8px 0;
+    max-width: 70%;
+    border-radius: 8px;
+    animation: shimmer 1.5s infinite;
+
+  }
+  .shimmer-content {
+    flex: 1;
+  }
+  
+  .shimmer-bubble {
+    height: 45px;
+    width: 60%;
+    max-width: 80%;
+    background: #d0d0d0;
+    border-radius: 12px;
+    animation: shimmer 1.5s infinite;
+  }
+  
+  .shimmer-message.own-message .shimmer-bubble {
+    background: #9494ca;
+    margin-left: auto;
+  }
+  
+  @keyframes shimmer {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .shimmer-bubble {
+      width: 250px;
+    }
+  }
+  

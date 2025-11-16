@@ -1,0 +1,8 @@
+<video
+  *ngIf="message"
+  controls
+  preload="true"
+  class="message-video"
+>
+  <source [src]="message.getData().attachments[0].url" type="video/mp4" />
+</video>

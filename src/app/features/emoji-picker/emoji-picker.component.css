@@ -1,0 +1,131 @@
+.emoji-picker {
+    width: 250px;
+    height: 300px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  .search-container {
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    outline: none;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+
+  .search-input:focus {
+    border-color: #EDEAFA;
+  }
+
+  .category-nav {
+    display: flex;
+    padding: 8px;
+    border-bottom: 1px solid #e0e0e0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .category-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .category-btn {
+    min-width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 0 2px;
+    transition: background-color 0.2s;
+  }
+
+  .category-btn:hover {
+    background-color: #f0f0f0;
+  }
+
+  .category-btn.active {
+    background-color: #EDEAFA;
+    color: white;
+  }
+
+  .emoji-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px;
+  }
+
+  .emoji-section {
+    margin-bottom: 16px;
+  }
+
+  .category-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 8px 8px;
+    color: #666;
+  }
+
+  .emoji-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+  }
+
+  .emoji-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .emoji-btn:hover {
+    background-color: #f0f0f0;
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+    font-size: 14px;
+  }
+
+  /* Scrollbar styling */
+  .emoji-content::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .emoji-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+  }
+
+  .emoji-content::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+  }
+
+  .emoji-content::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+  }

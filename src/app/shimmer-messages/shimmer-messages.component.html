@@ -1,0 +1,9 @@
+<div class="messages-shimmer">
+    <div *ngFor="let item of shimmerItems" class="shimmer-message" [class.own-message]="item.isOwn">
+        <div class="shimmer-avatar" *ngIf="!item.isOwn"></div>
+        <div class="shimmer-content">
+            <div class="shimmer-header" *ngIf="!item.isOwn"></div>
+            <div class="shimmer-bubble"></div>
+        </div>
+    </div>
+</div>

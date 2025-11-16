@@ -1,0 +1,129 @@
+.details-header-view{
+    padding: 8px 4px;
+    display: flex;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    border-bottom: 1px solid var(--chat-border-color-light);
+    background-color: var(--chat-background-1);
+    color: var(--chat-text-primary-color);
+}
+
+.avatar-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+    gap: 15px;
+}
+
+.detils-title{
+    font-size: 18px;
+    font-weight: bold;
+    padding: 4px 8px;
+}
+
+.status-message{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+}
+
+.subtitle-container{
+    font-size: 14px;
+}
+
+.name-container{
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--chat-text-primary-color);
+}
+
+.option-list-item{
+    display: flex;
+    gap: 10px;
+    padding: 12px 20px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.option-title.block, .option-title.deleteChat{
+    color: red;
+}
+
+.addMembers{
+    color: var(--chat-primary-color);
+}
+
+.side-component-content__action{
+    padding: 10px 0;
+}
+
+.tabs-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  .tabs-container {
+    display: flex;
+    background-color: #f1f1f1;
+    border-radius: 999px;
+    padding: 4px;
+    width: fit-content;
+    width: 90%;
+  }
+  
+  .tab-item {
+    padding: 8px 8px;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 50%;
+    color: #888;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+  
+  .action-buttons-wrapper{
+    border: 1px solid var(--chat-border-color-light);
+  }
+
+  /* Active tab style */
+  .tab-item.active {
+    background-color: white;
+    color: #6C47FF; /* Purple */
+    box-shadow: 0 0 0 1px #e0e0e0;
+  }
+
+  .details-component-wrapper{
+    height: 100%;
+  }
+  .details-content-container{
+    height: 90%;
+    overflow-y: auto;
+    margin-bottom: 40px;
+  }
+
+  .overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: white;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }

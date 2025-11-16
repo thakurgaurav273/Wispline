@@ -1,0 +1,88 @@
+<!-- <div #scrollContainer class="message-container" [style.backgroundColor]="listType === 'thread' ? 'white' : '#f5f5f5'"
+  (scroll)="onScroll()">
+  <div *ngIf="mainLoading && listType === 'main' && (!messages || messages.length !== 0)" class="loader-container">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <app-shimmer-messages *ngIf="mainLoading && listType === 'main' && (!messages || messages.length === 0)"
+    [messageCount]="15">
+  </app-shimmer-messages>
+
+  <div *ngIf="threadLoading && listType === 'thread' && (!threadMessages || threadMessages.length !== 0)"
+    class="loader-container">
+    <div class="loader-spinner"></div>
+  </div>
+
+  <app-shimmer-messages
+    *ngIf="threadLoading && listType === 'thread' && (!threadMessages || threadMessages.length === 0)"
+    [messageCount]="15">
+  </app-shimmer-messages>
+
+  <div *ngIf="listType === 'main' && !mainLoading && messages.length === 0" class="empty-view">
+    <div>No Previous messages!</div>
+  </div>
+
+  <div *ngIf="listType === 'thread' && !threadLoading && threadMessages.length === 0" class="empty-view">
+    <div>No Replies!</div>
+  </div>
+  
+  <div *ngIf="messages.length > 0">
+    @for (message of (parentMessageObject && listType === 'thread' ? threadMessages: messages); track $index; let i =
+    $index) {
+    <ng-container *ngIf="shouldShowDateHeader(i)">
+      <div class="chat-message-list__bubble-date-header">
+        <div class="date-separator">
+          {{ message.getSentAt() * 1000 | date }}
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="getBubbleConfig(message) as config">
+      <app-message-bubble [message]="message" [loggedInUserId]="loggedInUserId"
+        [alignment]="(message.getCategory() === 'action' || message.getCategory() === 'call') ? 'center' : message.getSender().getUid() === loggedInUserId ? 'right' : 'left'"
+        [contentView]="config.template"></app-message-bubble>
+    </ng-container>
+    }
+
+  </div>
+</div> -->
+
+
+<div #scrollContainer class="message-container"
+  [style.backgroundColor]="listType === 'thread' ? 'var(--chat-background-1)' : 'var(--chat-background-2)'"
+  (scroll)="handleScroll()">
+
+  <app-shimmer-messages *ngIf="(threadLoading) && listType === 'thread' && (activeMessages.length === 0)"
+    [messageCount]="7">
+  </app-shimmer-messages>
+
+  <app-shimmer-messages *ngIf="(mainLoading) && listType === 'main' && (messages.length === 0)" [messageCount]="7">
+  </app-shimmer-messages>
+
+  <!-- Empty state, only if not loading -->
+  <div *ngIf="listType === 'main' && !mainLoading && messages.length === 0" class="empty-view">
+    <div>No Previous messages!</div>
+  </div>
+  <div *ngIf="listType === 'thread' && !threadLoading && threadMessages.length === 0" class="empty-view">
+    <div>No Replies!</div>
+  </div>
+
+  <!-- Message List -->
+  <div *ngIf="messages.length > 0">
+    @for (message of (parentMessageObject && listType === 'thread' ? threadMessages: messages); track $index; let i =
+    $index) {
+    <ng-container *ngIf="shouldShowDateHeader(i)">
+      <div class="chat-message-list__bubble-date-header">
+        <div class="date-separator">
+          {{ message.getSentAt() * 1000 | date }}
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="getBubbleConfig(message) as config">
+      <app-message-bubble [message]="message" [loggedInUserId]="loggedInUserId"
+        [alignment]="(message.getCategory() === 'action' || message.getCategory() === 'call') ? 'center' : message.getSender().getUid() === loggedInUserId ? 'right' : 'left'"
+        [contentView]="config.template"></app-message-bubble>
+    </ng-container>
+    }
+  </div>
+
+</div>

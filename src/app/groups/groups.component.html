@@ -1,0 +1,39 @@
+<div class="groups-list" *ngIf="user">
+    <div class="groups-header">
+        <p class="groups-list-title">{{ title | titlecase }}</p>
+        <button (click)="toggleCreateGroup()" style="background-color: transparent; border: 0; margin-right: 10px; cursor: pointer;">
+            <app-icon [iconUrl]="'assets/create-group.svg'" height="30px" width="30px" hoverColor="var(--chat-primary-color)"></app-icon>
+        </button>
+    </div>
+    <div #scrollContainer class="groups-container" (scroll)="onScroll()">
+        @for (item of list; track $index; let i = $index) {
+        <div [attr.key]="i" class="chat-list__item-wrapper" 
+        [ngClass]="selectedGroup?.getGuid() === item.getGuid() ? 'user-selected' : ''"
+        (click)="handleGroupClick(item)">
+            <div class="chat-leading-view">
+                <app-avatar [avatarUrl]="item.getIcon()" [name]="item.getName()"></app-avatar>
+            </div>
+            <div class="main-list-item">
+                <div class="title-view">
+                    {{ item.getName() }}
+                </div>
+                <div class="subtitle-view">
+                    {{ item.getMembersCount() }} Members
+                </div>
+            </div>
+        </div>
+        }
+        <div *ngIf="loading && list.length !== 0" class="loader-container">
+            <div class="loader-spinner"></div>
+        </div>
+        <app-users-shimmer *ngIf="loading && list.length === 0" [itemCount]="10" [avatarStyle]="{
+            height: 48,
+            width: 48,
+        }"></app-users-shimmer>
+
+    </div>
+</div>
+
+<app-create-group *ngIf="showCreateGroup" (createGroup)="createGroup($event)"
+[closeCallback]="toggleCreateGroup.bind(this)">
+</app-create-group>

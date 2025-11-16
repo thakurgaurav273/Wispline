@@ -1,0 +1,23 @@
+<div class="full-screen-viewer-wrapper" *ngIf="message">
+    <div class="chat-fullscreen-viewer__header">
+        <div class="chat-list-item">
+            <div class="leading-view">
+                <app-avatar [name]="message.getSender().getName()"
+                    [avatarUrl]="message.getSender().getAvatar()"></app-avatar>
+            </div>
+            <div class="list-item-content">
+                <div class="list-item-title">
+                    {{message.getSender().getUid() !== loggedInUserUID ? message.getSender().getName() : 'You'}}
+                </div>
+                <div class="list-item-subtitle-view">
+                    {{ message.getSentAt() * 1000 | date: 'd/M/yyyy \'at\' hh:mm a' }} </div>
+            </div>
+        </div>
+        <div class="close-fullscreen-viewer" (click)="handleClose()">
+            <app-icon iconUrl="assets/close.svg" color="white" height="30px" width="30px"></app-icon>
+        </div>
+    </div>
+    <div class="fullscreen-viewer-body">
+        <img src={{message.data.url}} alt="" class="fullscreen-viewer-body-image" alt="image">
+    </div>
+</div>

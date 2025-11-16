@@ -1,0 +1,34 @@
+<div class="users-list" *ngIf="user">
+    <div class="users-header">
+        <p class="users-list-title">{{ title | titlecase }}</p>
+    </div>
+    <div #scrollContainer class="users-container" (scroll)="onScroll()">
+        @for (item of list; track $index; let i = $index) {
+        <div [attr.key]="i" class="chat-list__item-wrapper" 
+        [ngClass]="selectedUser?.getUid() === item.getUid() ? 'user-selected' : ''"
+        (click)="handleUserClick(item)">
+            <div class="chat-leading-view">
+                <app-avatar [avatarUrl]="item.getAvatar()" [name]="item.getName()"></app-avatar>
+            </div>
+            <div class="main-list-item">
+                <div class="title-view">
+                    {{ item.getName() }}
+                </div>
+                <div class="subtitle-view">
+                    {{ item.getStatus() }}
+                </div>
+            </div>
+            <div class="trailing-view">
+                {{ item.getLastActiveAt() * 1000 | date }}
+            </div>
+        </div>
+        }
+        <div *ngIf="loading && list.length !== 0" class="loader-container">
+            <div class="loader-spinner"></div>
+        </div>
+        <app-users-shimmer *ngIf="loading && list.length === 0" [itemCount]="10" [avatarStyle]="{
+            height: 48,
+            width: 48,
+        }"></app-users-shimmer>
+    </div>
+</div>

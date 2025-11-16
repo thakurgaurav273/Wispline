@@ -1,0 +1,36 @@
+<div class="chat-message-header">
+    <div class="chat-list-item">
+        <div class="list-item-leading-view">
+            <button class="back-button" (click)="handleBackClick()">
+                <app-icon iconUrl="assets/back.svg" height="24px" width="24px"
+                color="var(--chat-text-primary-color)" hoverColor="var(--chat-primary-color)"></app-icon>
+                </button>
+            <app-avatar *ngIf="chatWithUser || chatWithGroup"
+                [avatarUrl]="chatWithUser?.getAvatar() ?? chatWithGroup?.getIcon()" [name]="name">
+            </app-avatar>
+
+        </div>
+        <div class="main-list-item">
+            <div class="title-view">
+                {{chatWithUser?.getName() || chatWithGroup?.getName()}}
+            </div>
+            <div class="subtitle-view">
+                {{chatWithUser?.getStatus() || chatWithGroup?.getMembersCount() + ' Members'}}
+            </div>
+        </div>
+    </div>
+    <div class="auxiliary-button-view">
+        <button class="back-button" (click)="initiateCall('audio')">
+            <app-icon [iconUrl]="'assets/audio_call_button.svg'" height="24px" width="24px"
+                color="var(--chat-text-primary-color)" hoverColor="var(--chat-primary-color)"></app-icon>
+        </button>
+        <button class="back-button" (click)="initiateCall('video')">
+            <app-icon [iconUrl]="'assets/video_call_button.svg'" height="24px" width="24px"
+                color="var(--chat-text-primary-color)" hoverColor="var(--chat-primary-color)"></app-icon>
+        </button>
+        <button class="back-button" (click)="toggleShowDetails(true)">
+            <app-icon [iconUrl]="'assets/info_icon.svg'" height="24px" width="24px"
+                color="var(--chat-text-primary-color)" hoverColor="var(--chat-primary-color)"></app-icon>
+        </button>
+    </div>
+</div>

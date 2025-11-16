@@ -1,0 +1,45 @@
+<div class="chat" style="height: fit-content; width: fit-content;">
+    <div class="chat-audio-bubble"
+         [class.chat-audio-bubble-outgoing]="isSentByMe"
+         [class.chat-audio-bubble-incoming]="!isSentByMe"
+         [style.cursor]="isLoading ? 'not-allowed' : 'pointer'">
+      <div>
+        <div class="chat-audio-bubble__leading-view"
+             [style.pointerEvents]="isLoading ? 'none' : 'auto'">
+          <div *ngIf="isPlaying; else playIcon" 
+               class="chat-audio-bubble__leading-view-pause" 
+               (click)="handlePlayPause()"></div>
+          <ng-template #playIcon>
+            <div class="chat-audio-bubble__leading-view-play" 
+                 (click)="handlePlayPause()"></div>
+          </ng-template>
+        </div>
+        <div class="chat-audio-bubble__body">
+          <div class="chat-audio-bubble__body-wave" #waveformRef></div>
+          <div class="chat-audio-bubble__body-time">
+            {{ formatTime(currentTime) }} / {{ formatTime(duration) }}
+          </div>
+        </div>
+      </div>
+      <div class="chat-audio-bubble__tail-view" 
+           [style.pointerEvents]="isLoading ? 'none' : 'auto'">
+        <ng-container *ngIf="isDownloading; else downloadIcon">
+          <div class="chat-audio-bubble__tail-view-download-progress" 
+               (click)="cancelDownload()">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" 
+                      class="chat-audio-bubble__tail-view-download-progress-background"></circle>
+              <circle cx="12" cy="12" r="10" 
+                      class="chat-audio-bubble__tail-view-download-progress-foreground"
+                      [style.stroke-dasharray]="(progress * 1.13) + ' 113'"></circle>
+            </svg>
+            <div class="chat-audio-bubble__tail-view-download-stop"></div>
+          </div>
+        </ng-container>
+        <ng-template #downloadIcon>
+          <div class="chat-audio-bubble__tail-view-download" 
+               (click)="downloadAudio()"></div>
+        </ng-template>
+      </div>
+    </div>
+  </div>

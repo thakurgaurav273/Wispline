@@ -1,0 +1,34 @@
+<div class="thread-replies-wrapper" *ngIf="parentMessage">
+    <div class="thread-replies-header">
+        <div class="thread-replies-title">
+            Thread
+        </div>
+        <app-icon iconUrl="assets/close.svg" color="var(--chat-text-primary-color)" hoverColor="var(--chat-primary-color)" height="24px" width="24px"
+            (click)="onClose()"></app-icon>
+    </div>
+    <ng-container>
+        <div class="chat-message-list__bubble-date-header">
+            <div class="date-separator">
+                {{ parentMessage.getSentAt() * 1000 | date }}
+            </div>
+        </div>
+    </ng-container>
+    <div class="parent-bubble">
+        <ng-container *ngIf="getBubbleConfig(parentMessage) as config">
+            <app-message-bubble [isThreadParentBubble]="true" [message]="parentMessage" [loggedInUserId]="loggedInUserId"
+                [alignment]="parentMessage.getSender().getUid() === loggedInUserId ? 'right' : 'left'"
+                [contentView]="config.template"></app-message-bubble>
+        </ng-container>
+
+        <div class="thread-footer">
+            <p class="replies-count">
+                {{parentMessage.getReplyCount() ? parentMessage.getReplyCount() : 0}} Replies
+            </p>
+            <div class="divider-line"></div>
+        </div>
+    </div>
+    <div class="list-wrapper">
+        <app-message-list [listType]="'thread'"></app-message-list>
+    </div>
+    <app-message-composer [parentMessageId]="parentMessageId"></app-message-composer>
+</div>

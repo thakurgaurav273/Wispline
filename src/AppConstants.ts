@@ -1,0 +1,5 @@
+export const Creds = {
+    APP_ID: "COMETCHAT_APP_ID",
+    REGION: "COMETCHAT_APP_REGION",
+    AUTH_KEY: "COMETCHAT_AUTH_KEY"
+}

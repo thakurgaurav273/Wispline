@@ -1,0 +1,437 @@
+@import 'themes/default-theme.scss';
+@import 'themes/dark-theme.scss';
+
+/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0 0 !important;
+  background-color: var(--chat-background-1);
+}
+
+.chat-message-bubble-outgoing .chat-message-bubble__body .mention-highlight {
+  display: inline;
+  font-weight: bold;
+  color: #ffab00 !important;
+  background-color: #ffab0033;
+}
+
+.mention-highlight {
+  cursor: pointer;
+}
+
+.chat-message-bubble-incoming .chat-message-bubble__body .mention-highlight {
+  display: inline;
+  font-weight: bold;
+  color: blue !important;
+  background-color: #ffab0033;
+}
+
+.chat-message-bubble-outgoing .deleted_bubble {
+  background-color: unset !important;
+  border: 1px dashed var(--chat-primary-color) !important;
+}
+
+.chat-message-bubble-outgoing .meeting-bubble-wrapper{
+  background-color: var(--chat-primary-color) !important;
+}
+
+.chat-message-bubble-incoming .meeting-bubble-wrapper{
+  background-color: var(--chat-secondary-color) !important;
+}
+
+.chat-message-bubble-incoming .time-stamp{
+  color: #727272;
+}
+
+.chat-message-bubble-incoming .call-type-wrapper{
+  color: var(--chat-text-primary-color);
+}
+
+.chat-message-bubble-incoming .join-meeting-button{
+  color: #000 !important;
+}
+.chat-message-bubble-incoming .separator{
+  background-color: var(--chat-neutral-color) !important;
+}
+
+.chat-message-bubble-outgoing .context-menu__submenu{
+  margin-left: -40px !important;
+}
+
+.chat-message-bubble-outgoing .reactions-section {
+  display: flex;
+  justify-content: end;
+}
+
+.chat-message-bubble-outgoing .reactions-panel{
+  bottom: 0%;
+  right: calc(100% - 50px);
+}
+
+.chat-message-bubble-incoming .reactions-panel{
+  bottom: 0%;
+  left: calc(100% - 50px);
+}
+
+
+:root {
+  /* Spacing Units
+  Define consistent spacing units to be used throughout the application. These variables provide a range of spacing intervals for padding, margin, and layout styling, ensuring uniformity across components.
+    */
+
+  --chat-spacing: 2px;
+  --chat-spacing-1: 4px;
+  --chat-spacing-2: 8px;
+  --chat-spacing-3: 12px;
+  --chat-spacing-4: 16px;
+  --chat-spacing-5: 20px;
+  --chat-spacing-6: 24px;
+  --chat-spacing-7: 28px;
+  --chat-spacing-8: 32px;
+  --chat-spacing-9: 36px;
+  --chat-spacing-10: 40px;
+  --chat-spacing-11: 44px;
+  --chat-spacing-12: 48px;
+  --chat-spacing-13: 52px;
+  --chat-spacing-14: 56px;
+  --chat-spacing-15: 60px;
+  --chat-spacing-16: 64px;
+  --chat-spacing-17: 68px;
+  --chat-spacing-18: 72px;
+  --chat-spacing-19: 76px;
+  --chat-spacing-20: 80px;
+  --chat-spacing-max: 1000px;
+
+  /* Padding
+  Map padding values to corresponding spacing units for consistent padding across all UI elements,
+  enhancing visual rhythm and balance.
+    */
+  --chat-padding: var(--chat-spacing);
+  --chat-padding-1: var(--chat-spacing-1);
+  --chat-padding-2: var(--chat-spacing-2);
+  --chat-padding-3: var(--chat-spacing-3);
+  --chat-padding-4: var(--chat-spacing-4);
+  --chat-padding-5: var(--chat-spacing-5);
+  --chat-padding-6: var(--chat-spacing-6);
+  --chat-padding-7: var(--chat-spacing-7);
+  --chat-padding-8: var(--chat-spacing-8);
+  --chat-padding-9: var(--chat-spacing-9);
+  --chat-padding-10: var(--chat-spacing-10);
+
+  /* Margin
+    Map margin values to corresponding spacing units to ensure consistent spacing between elements and maintain a cohesive layout throughout the application.
+    */
+  --chat-margin: var(--chat-spacing);
+  --chat-margin-1: var(--chat-spacing-1);
+  --chat-margin-2: var(--chat-spacing-2);
+  --chat-margin-3: var(--chat-spacing-3);
+  --chat-margin-4: var(--chat-spacing-4);
+  --chat-margin-5: var(--chat-spacing-5);
+  --chat-margin-6: var(--chat-spacing-6);
+  --chat-margin-7: var(--chat-spacing-7);
+  --chat-margin-8: var(--chat-spacing-8);
+  --chat-margin-9: var(--chat-spacing-9);
+  --chat-margin-10: var(--chat-spacing-10);
+  --chat-margin-11: var(--chat-spacing-11);
+  --chat-margin-12: var(--chat-spacing-12);
+  --chat-margin-13: var(--chat-spacing-13);
+  --chat-margin-14: var(--chat-spacing-14);
+  --chat-margin-15: var(--chat-spacing-15);
+  --chat-margin-16: var(--chat-spacing-16);
+  --chat-margin-17: var(--chat-spacing-17);
+  --chat-margin-18: var(--chat-spacing-18);
+  --chat-margin-19: var(--chat-spacing-19);
+  --chat-margin-20: var(--chat-spacing-20);
+
+  /* Border Radius
+   Define border-radius values tied to spacing units,
+      providing consistent rounded corners for UI elements,
+      aligning with the overall design system.
+     */
+  --chat-radius: var(--chat-spacing);
+  --chat-radius-1: var(--chat-spacing-1);
+  --chat-radius-2: var(--chat-spacing-2);
+  --chat-radius-3: var(--chat-spacing-3);
+  --chat-radius-4: var(--chat-spacing-4);
+  --chat-radius-5: var(--chat-spacing-5);
+  --chat-radius-6: var(--chat-spacing-6);
+  --chat-radius-max: var(--chat-spacing-max);
+  /*
+    These variables define the fonts for different text elements.
+    Use these to maintain consistent typography styles throughout your application.
+     */
+  --chat-font-family: 'Roboto', 'Inter';
+  --chat-font-title-bold: 700 32px/38.4px var(--chat-font-family);
+  --chat-font-title-medium: 500 32px/38.4px var(--chat-font-family);
+  --chat-font-title-regular: 400 32px/38.4px var(--chat-font-family);
+
+  --chat-font-heading1-bold: 700 24px/28.8px var(--chat-font-family);
+  --chat-font-heading1-medium: 500 24px/28.8px var(--chat-font-family);
+  --chat-font-heading1-regular: 400 24px/28.8px var(--chat-font-family);
+
+  --chat-font-heading2-bold: 700 20px/24px var(--chat-font-family);
+  --chat-font-heading2-medium: 500 20px/24px var(--chat-font-family);
+  --chat-font-heading2-regular: 400 20px/24px var(--chat-font-family);
+
+  --chat-font-heading3-bold: 700 18px/21.6px var(--chat-font-family);
+  --chat-font-heading3-medium: 500 18px/21.6px var(--chat-font-family);
+  --chat-font-heading3-regular: 400 18px/21.6px var(--chat-font-family);
+
+  --chat-font-heading4-bold: 700 16px/19.2px var(--chat-font-family);
+  --chat-font-heading4-medium: 500 16px/19.2px var(--chat-font-family);
+  --chat-font-heading4-regular: 400 16px/19.2px var(--chat-font-family);
+
+  --chat-font-body-bold: 700 14px/16.8px var(--chat-font-family);
+  --chat-font-body-medium: 500 14px/16.8px var(--chat-font-family);
+  --chat-font-body-regular: 400 14px/16.8px var(--chat-font-family);
+
+  --chat-font-caption1-bold: 700 12px/14.4px var(--chat-font-family);
+  --chat-font-caption1-medium: 500 12px/14.4px var(--chat-font-family);
+  --chat-font-caption1-regular: 400 12px/14.4px var(--chat-font-family);
+
+  --chat-font-caption2-bold: 700 10px/12px var(--chat-font-family);
+  --chat-font-caption2-medium: 500 10px/12px var(--chat-font-family);
+  --chat-font-caption2-regular: 400 10px/12px var(--chat-font-family);
+
+  --chat-font-button-bold: 700 14px/16.8px var(--chat-font-family);
+  --chat-font-button-medium: 500 14px/16.8px var(--chat-font-family);
+  --chat-font-button-regular: 400 14px/16.8px var(--chat-font-family);
+
+  --chat-font-link: 400 14px/19.6px var(--chat-font-family);
+
+  /*Primary & Extended Colors
+   Set the primary color and a range of extended shades to be used throughout the application,
+    maintaining a consistent visual theme with variations to suit different UI components and states.
+     */
+  --chat-primary-color: #6852D6;
+  --chat-extended-primary-color-50: #F9F8FD;
+  --chat-extended-primary-color-100: #EDEAFA;
+  --chat-extended-primary-color-200: #DCD7F6;
+  --chat-extended-primary-color-300: #CCC4F1;
+  --chat-extended-primary-color-400: #BBB1ED;
+  --chat-extended-primary-color-500: #AA9EE8;
+  --chat-extended-primary-color-600: #9A8BE4;
+  --chat-extended-primary-color-700: #8978DF;
+  --chat-extended-primary-color-800: #7965DB;
+  --chat-extended-primary-color-900: #5D49BE;
+    --chat-extended-primary-color-1000: #33286dd1;
+
+  /*
+    Neutral Colors
+     Define a neutral color palette, providing versatile shades for backgrounds,text and borders. These neutrals serve as the foundation for the application's color scheme.
+     */
+  --chat-neutral-color-50: #FFFFFF;
+  --chat-neutral-color-100: #FAFAFA;
+  --chat-neutral-color-200: #F5F5F5;
+  --chat-neutral-color-300: #E8E8E8;
+  --chat-neutral-color-400: #DCDCDC;
+  --chat-neutral-color-500: #A1A1A1;
+  --chat-neutral-color-600: #727272;
+  --chat-neutral-color-700: #5B5B5B;
+  --chat-neutral-color-800: #434343;
+  --chat-neutral-color-900: #141414;
+  --chat-neutral-color-1000: #ffffff61;
+
+  /*
+  Alert Colors
+   Assign colors for various alerts, such as informational messages, warnings,  success notifications,
+and errors.
+     */
+  --chat-info-color: #0B7BEA;
+  --chat-warning-color: #FFAB00;
+  --chat-success-color: #09C26F;
+  --chat-error-color: #F44649;
+  --chat-error-color-100: #FEF3F2;
+
+  /*
+    Static colors
+     Assign colors for various alerts, such as informational messages, warnings,  success notifications,
+  and errors.
+       */
+
+  --chat-static-black: #141414;
+  --chat-static-white: #FFFFFF;
+
+  /*
+  Background Colors
+   Specify background colors derived from the neutral palette for different sections of the application.
+     */
+  --chat-background-color-01: var(--chat-neutral-color-50);
+  --chat-background-color-02: var(--chat-neutral-color-100);
+  --chat-background-color-03: var(--chat-neutral-color-200);
+  --chat-background-color-04: var(--chat-neutral-color-300);
+  --chat-background-color-05: var(--chat-neutral-color-1000);
+
+
+  /*
+  Border Colors
+Define border colors for UI elements,
+    creating clear visual boundaries
+      */
+  --chat-border-color-light: var(--chat-neutral-color-200);
+  --chat-border-color-default: var(--chat-neutral-color-300);
+  --chat-border-color-dark: var(--chat-neutral-color-400);
+  --chat-border-color-highlight: var(--chat-primary-color);
+
+
+  /*
+  Text Colors
+  Define text colors to ensure readability and contrast against various background shades. These include primary, secondary, tertiary, disabled, and highlight text colors.
+      */
+  --chat-text-color-primary: var(--chat-neutral-color-900);
+  --chat-text-color-secondary: var(--chat-neutral-color-600);
+  --chat-text-color-tertiary: var(--chat-neutral-color-500);
+  --chat-text-color-disabled: var(--chat-neutral-color-400);
+  --chat-text-color-white: var(--chat-neutral-color-50);
+  --chat-text-color-highlight: var(--chat-primary-color);
+
+  /*
+  Icon Colors
+   Assign colors for icons throughout the application. Icon colors align with the text and background palettes.
+     */
+  --chat-icon-color-primary: var(--chat-neutral-color-900);
+  --chat-icon-color-secondary: var(--chat-neutral-color-500);
+  --chat-icon-color-tertiary: var(--chat-neutral-color-400);
+  --chat-icon-color-white: var(--chat-neutral-color-50);
+  --chat-icon-color-highlight: var(--chat-primary-color);
+
+  /*
+    Styling for shimmer effects shown while loading content in the uikit.
+     */
+  --chat-shimmer-background-color: var(--chat-neutral-color-200);
+  --chat-shimmer-gradient-color: linear-gradient(90deg, #E0E0E0 0%, #EEE 100%);
+  --chat-text-shimmer-gradient-color: linear-gradient(270deg, rgba(255, 255, 255, 0.00) 0%, rgba(255, 255, 255, 0.70) 50%, rgba(255, 255, 255, 0.00) 100%);
+
+
+  /*
+    Styling for buttons.
+     */
+  --chat-primary-button-background: var(--chat-primary-color);
+  --chat-primary-button-text: var(--chat-static-white);
+  --chat-primary-button-icon: var(--chat-static-white);
+  --chat-secondary-button-background: var(--chat-neutral-color-900);
+  --chat-secondary-button-icon: var(--chat-neutral-color-900);
+  --chat-secondary-button-text: var(--chat-neutral-color-900);
+  --chat-link-button: var(--chat-info-color);
+  --chat-fab-button-background: var(--chat-primary-color);
+  --chat-fab-button-icon: var(--chat-static-white);
+  --chat-white-hover: var(--chat-neutral-color-100);
+  --chat-white-pressed: var(--chat-neutral-color-300);
+}
+
+[data-theme="dark"] {
+  --chat-primary-color: #6852D6;
+  --chat-extended-primary-color-50: #15102B;
+  --chat-extended-primary-color-100: #1D173C;
+  --chat-extended-primary-color-200: #251E4D;
+  --chat-extended-primary-color-300: #2E245E;
+  --chat-extended-primary-color-400: #362B6F;
+  --chat-extended-primary-color-500: #3E3180;
+  --chat-extended-primary-color-600: #473892;
+  --chat-extended-primary-color-700: #4F3EA3;
+  --chat-extended-primary-color-800: #5745B4;
+  --chat-extended-primary-color-900: #7460D9;
+  /**
+   * Neutral Colors
+  * Define a neutral color palette, providing versatile shades for backgrounds,text and borders. These neutrals serve as the foundation for the application's color scheme.
+   **/
+  --chat-neutral-color-50: #141414;
+  --chat-neutral-color-100: #1A1A1A;
+  --chat-neutral-color-200: #272727;
+  --chat-neutral-color-300: #383838;
+  --chat-neutral-color-400: #4C4C4C;
+  --chat-neutral-color-500: #858585;
+  --chat-neutral-color-600: #989898;
+  --chat-neutral-color-700: #A8A8A8;
+  --chat-neutral-color-800: #C8C8C8;
+  --chat-neutral-color-900: #FFFFFF;
+    --chat-neutral-color-1000: #4a4a4a87;
+
+  /*
+  Alert Colors
+  Assign colors for various alerts, such as informational messages, warnings,  success notifications,
+  and errors.
+     */
+
+  --chat-info-color: #0D66BF;
+  --chat-warning-color: #D08D04;
+  --chat-success-color: #0B9F5D;
+  --chat-message-seen-color: #56E8A7;
+  --chat-error-color: #C73C3E;
+  --chat-error-color-100: #3A0C05;
+  
+    /*
+    Static colors
+     Assign colors for various alerts, such as informational messages, warnings,  success notifications,
+  and errors.
+       */
+
+       --chat-static-black: #141414;
+       --chat-static-white: #FFFFFF;
+
+  /*
+  Background Colors
+   Specify background colors derived from the neutral palette for different sections of the application.
+     */
+  --chat-background-color-01: var(--chat-neutral-color-50);
+  --chat-background-color-02: var(--chat-neutral-color-100);
+  --chat-background-color-03: var(--chat-neutral-color-200);
+  --chat-background-color-04: var(--chat-neutral-color-300);
+  --chat-background-color-05: var(--chat-neutral-color-1000);
+
+  /*
+  Border Colors
+Define border colors for UI elements,
+    creating clear visual boundaries
+      */
+  --chat-border-color-light: var(--chat-neutral-color-200);
+  --chat-border-color-default: var(--chat-neutral-color-300);
+  --chat-border-color-dark: var(--chat-neutral-color-400);
+  --chat-border-color-highlight: var(--chat-primary-color);
+
+  /*
+  Text Colors
+  Define text colors to ensure readability and contrast against various background shades. These include primary, secondary, tertiary, disabled, and highlight text colors.
+      */
+  --chat-text-color-primary: var(--chat-neutral-color-900);
+  --chat-text-color-secondary: var(--chat-neutral-color-600);
+  --chat-text-color-tertiary: var(--chat-neutral-color-500);
+  --chat-text-color-disabled: var(--chat-neutral-color-400);
+  --chat-text-color-white: var(--chat-neutral-color-50);
+  --chat-text-color-highlight: var(--chat-primary-color);
+
+  /*
+  Icon Colors
+   Assign colors for icons throughout the application. Icon colors align with the text and background palettes.
+     */
+  --chat-icon-color-primary: var(--chat-neutral-color-900);
+  --chat-icon-color-secondary: var(--chat-neutral-color-500);
+  --chat-icon-color-tertiary: var(--chat-neutral-color-400);
+  --chat-icon-color-white: var(--chat-neutral-color-50);
+  --chat-icon-color-highlight: var(--chat-primary-color);
+  /*
+  Styling for shimmer effects shown while loading content in the uikit.
+   */
+  --chat-shimmer-background-color: var(--chat-background-color-01);
+  --chat-shimmer-gradient-color: linear-gradient(90deg, #383838 0%, #272727 100%);
+  --chat-text-shimmer-gradient-color: linear-gradient(270deg, rgba(26, 26, 26, 0.00) 0%, rgba(26, 26, 26, 0.70) 50%, rgba(26, 26, 26, 0.00) 100%);
+
+  /*
+   Styling for buttons.
+  */
+  --chat-primary-button-background: var(--chat-primary-color);
+  --chat-primary-button-text: var(--chat-static-white);
+  --chat-primary-button-icon: var(--chat-static-white);
+  --chat-secondary-button-background: var(--chat-neutral-color-900);
+  --chat-secondary-button-text: var(--chat-neutral-color-900);
+  --chat-secondary-button-icon: var(--chat-neutral-color-900);
+  --chat-link-button: var(--chat-info-color);
+  --chat-fab-button-background: var(--chat-primary-color);
+  --chat-fab-button-icon: var(--chat-static-white);
+  --chat-white-hover: var(--chat-neutral-color-100);
+  --chat-white-pressed: var(--chat-neutral-color-300);
+}
+
+.message-bubble .chat-url {
+  font: var(--chat-font-body-regular);
+  font-style: normal;
+}

@@ -1,0 +1,343 @@
+.reactions-section {
+    margin-top: -6px;
+    position: relative;
+
+    .reaction-buttons {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        flex-wrap: wrap;
+
+        .reaction-btn {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            border: none;
+            border-radius: 12px;
+            background: var(--chat-background-color-05);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 12px;
+
+            &:hover {
+                background: #f5f5f5;
+                border-color: #d0d0d0;
+            }
+
+            &.user-reacted {
+                color: #c2c2c2;
+                background: var(--chat-extended-primary-color-1000);
+                &:hover {
+                    background: #8639d981;
+                }
+            }
+
+            .reaction-emoji {
+                font-size: 14px;
+                line-height: 1;
+            }
+
+            .reaction-count {
+                font-weight: 500;
+                min-width: 12px;
+                text-align: center;
+            }
+        }
+
+        .add-reaction-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px 8px;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            background: #fff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 12px;
+            font-weight: 500;
+            color: #666;
+            min-width: 32px;
+
+            &:hover:not(:disabled) {
+                background: #f5f5f5;
+                border-color: #d0d0d0;
+            }
+
+            &:disabled {
+                cursor: not-allowed;
+                opacity: 0.6;
+            }
+        }
+    }
+
+    .reactions-panel {
+        position: absolute;
+        z-index: 1000;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        left: 22%;
+        top: 30%;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        margin-top: 4px;
+        max-height: 300px;
+        min-height: 200px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        width: 220px;
+
+        .reactions-header::-webkit-scrollbar {
+            display: none;
+            /* Chrome, Safari, and Opera */
+        }
+
+        .reactions-header {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            border-bottom: 1px solid #f0f0f0;
+            gap: 4px;
+            overflow: scroll;
+
+            .reaction-tab {
+                display: flex;
+                align-items: center;
+                gap: 4px;
+                padding: 6px 12px;
+                border: none;
+                border-radius: 16px;
+                background: #f5f5f5;
+                cursor: pointer;
+                transition: all 0.2s ease;
+                font-size: 12px;
+                font-weight: 500;
+                color: #666;
+                white-space: nowrap;
+
+                &:hover {
+                    background: #e0e0e0;
+                }
+
+                &.active {
+                    background: var(--chat-primary-color);
+                    color: #fff;
+
+                    &:hover {
+                        background: #1976d2;
+                    }
+                }
+            }
+        }
+
+        .reactions-users-list {
+            flex: 1;
+            overflow-y: auto;
+            max-height: 200px;
+
+            .reaction-user-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 8px 12px;
+                cursor: default;
+                transition: background-color 0.2s ease;
+
+                &.removable {
+                    cursor: pointer;
+
+                    &:hover {
+                        background: #f9f9f9;
+
+                        .remove-hint {
+                            opacity: 1;
+                        }
+                    }
+                }
+
+                .user-info {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    flex: 1;
+                    min-width: 0;
+
+                    .user-details {
+                        flex: 1;
+                        min-width: 0;
+
+                        .item-view {
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+
+                            .user-name {
+                                font-weight: 500;
+                                font-size: 14px;
+                                color: #333;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+
+                            .remove-hint {
+                                font-size: 11px;
+                                color: #999;
+                                opacity: 0;
+                                transition: opacity 0.2s ease;
+                                white-space: nowrap;
+                            }
+                        }
+
+                        .reaction-time {
+                            font-size: 11px;
+                            color: #999;
+                            margin-top: 2px;
+                            display: block;
+                        }
+                    }
+                }
+
+                .reaction-emoji-large {
+                    font-size: 16px;
+                    line-height: 1;
+                    margin-left: 8px;
+                }
+            }
+        }
+
+        .reactions-empty {
+            padding: 20px;
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .reactions-section {
+        .reactions-panel {
+            left: -10px;
+            right: -10px;
+            max-height: 250px;
+
+            .reactions-header {
+                .reaction-tab {
+                    font-size: 11px;
+                    padding: 4px 8px;
+                }
+            }
+
+            .reactions-users-list {
+                max-height: 150px;
+
+                .reaction-user-item {
+                    padding: 6px 8px;
+
+                    .user-info {
+                        .user-details {
+                            .item-view {
+                                flex-direction: column;
+                                align-items: flex-start;
+                                gap: 2px;
+
+                                .user-name {
+                                    font-size: 13px;
+                                }
+
+                                .remove-hint {
+                                    font-size: 10px;
+                                }
+                            }
+
+                            .reaction-time {
+                                font-size: 10px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .reactions-section {
+        .reaction-buttons {
+            .reaction-btn {
+                background: var(--chat-background-color-05);
+                border-color: #444;
+                color: #fff;
+
+                &:hover {
+                    background: #333;
+                    border-color: #555;
+                }
+
+                &.user-reacted {
+                    background: var(--chat-extended-primary-color-1000);
+                }
+            }
+
+            .add-reaction-btn {
+                background: #2a2a2a;
+                border-color: #444;
+                color: #ccc;
+
+                &:hover:not(:disabled) {
+                    background: #333;
+                    border-color: #555;
+                }
+            }
+        }
+
+        .reactions-panel {
+            background: #2a2a2a;
+            border-color: #444;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+            .reactions-header {
+                border-bottom-color: #444;
+
+                .reaction-tab {
+                    background: #444;
+                    color: #ccc;
+
+                    &:hover {
+                        background: #555;
+                    }
+
+                    &.active {
+                        background: #000000;
+                        color: #fff;
+                    }
+                }
+            }
+
+            .reactions-users-list {
+                .reaction-user-item {
+                    &.removable:hover {
+                        background: #333;
+                    }
+
+                    .user-info .user-details {
+                        .item-view .user-name {
+                            color: #fff;
+                        }
+
+                        .reaction-time {
+                            color: #999;
+                        }
+                    }
+                }
+            }
+
+            .reactions-empty {
+                color: #999;
+            }
+        }
+    }
+}

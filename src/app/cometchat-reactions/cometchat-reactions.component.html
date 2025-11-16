@@ -1,0 +1,80 @@
+<!-- Reactions section -->
+<div class="reactions-section" *ngIf="!isThreadParentBubble && reactions && reactions.length > 0">
+    <!-- Reaction buttons - Show first reaction + remaining count -->
+    <div class="reaction-buttons">
+        <!-- First reaction button -->
+        <button class="reaction-btn" *ngIf="getFirstReaction()"
+            [class.user-reacted]="hasUserReacted(getFirstReaction()!.emoji)"
+            (click)="hasUserReacted(getFirstReaction()!.emoji) ? removeReaction(getFirstReaction()!.emoji) : addReaction(getFirstReaction()!.emoji)">
+            <span class="reaction-emoji">{{ getFirstReaction()!.emoji }}</span>
+            <span class="reaction-count">{{ getFirstReaction()!.count }}</span>
+        </button>
+
+        <!-- Remaining reactions button (+X) -->
+        <button class="add-reaction-btn" *ngIf="getRemainingReactionsCount() > 0" (click)="loadDetailedReactions()"
+            [disabled]="isLoadingReactions">
+            <span *ngIf="!isLoadingReactions">+{{ getRemainingReactionsCount() }}</span>
+            <span *ngIf="isLoadingReactions">...</span>
+        </button>
+    </div>
+
+    <!-- Reactions panel (expandable) - Shows after loading detailed reactions -->
+    <div class="reactions-panel" *ngIf="showUsersList" (clickOutside)="onClickOutside()"
+        [attr.data-testid]="'reactions-panel'">
+
+        <!-- Header with tabs -->
+        <div class="reactions-header">
+            <button class="reaction-tab" [class.active]="selectedReactionFilter === 'all'"
+                (click)="filterReactions('all')" [attr.data-testid]="'filter-all'">
+                All {{ detailedReactions.length }}
+            </button>
+
+            <button class="reaction-tab" *ngFor="let reaction of getUniqueReactionsFromDetailed()"
+                [class.active]="selectedReactionFilter === reaction.emoji" (click)="filterReactions(reaction.emoji)"
+                [attr.data-testid]="'filter-' + reaction.emoji">
+                {{ reaction.emoji }} {{ getDetailedReactionCount(reaction.emoji) }}
+            </button>
+        </div>
+
+
+
+        <!-- Users list -->
+        <div class="reactions-users-list">
+            <app-users-shimmer *ngIf="isLoadingReactions && detailedReactions.length === 0" [itemCount]="3">
+            </app-users-shimmer>
+            <div *ngIf="detailedReactions.length > 0">
+                <div class="reaction-user-item" *ngFor="let reaction of getFilteredDetailedReactions()"
+                    (click)="removeReaction(reaction.getReaction())"
+                    [class.removable]="canRemoveReaction(reaction.getReaction())"
+                    [attr.data-testid]="'reaction-item-' + reaction.getReaction()">
+
+                    <div class="user-info">
+                        <app-avatar [avatarStyle]="{height: 20, width: 20}"
+                            [avatarUrl]="reaction.getReactedBy().getAvatar()"
+                            [name]="reaction.getReactedBy().getName()">
+                        </app-avatar>
+
+                        <div class="user-details">
+                            <div class="item-view">
+                                <span class="user-name">{{ loggedInUser.getUid() === reaction.getReactedBy().getUid() ? 'You' : reaction.getReactedBy().getName() }}</span>
+                                <span class="remove-hint" *ngIf="canRemoveReaction(reaction.getReaction())">
+                                    Tap to remove
+                                </span>
+                            </div>
+                            <span class="reaction-time" *ngIf="reaction.getReactedAt()">
+                                {{ formatReactionTime(reaction.getReactedAt()) }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="reaction-emoji-large">{{ reaction.getReaction() }}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty state -->
+        <div class="reactions-empty" *ngIf="!isLoadingReactions && detailedReactions.length === 0">
+            <p>No reactions yet</p>
+        </div>
+    </div>
+</div>

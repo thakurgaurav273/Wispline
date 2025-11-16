@@ -1,0 +1,12 @@
+<div
+  class="icon"
+  [ngStyle]="{
+    WebkitMaskImage: 'url(' + iconUrl + ')',
+    maskImage: 'url(' + iconUrl + ')',
+    backgroundColor: isHovered ? hoverColor : color,
+    height: height,
+    width: width
+  }"
+  (mouseenter)="isHovered = true"
+  (mouseleave)="isHovered = false"
+></div>

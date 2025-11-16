@@ -1,0 +1,33 @@
+    <div
+      #triggerRef
+      class="chat-popover__button"
+      (click)="onTriggerClick($event)"
+      (mouseenter)="onMouseEnter()"
+      (mouseleave)="onMouseLeave()"
+      [style.cursor]="showOnHover ? 'pointer' : ''"
+    >
+      <ng-container *ngTemplateOutlet="triggerTemplate"></ng-container>
+    </div>
+  
+    <ng-container *ngIf="isOpen">
+      <div
+        #popoverRef
+        class="chat-popover__content"
+        [ngStyle]="positionStyle"
+        (mouseenter)="onMouseEnter()"
+        (mouseleave)="onMouseLeave()"
+        [style.zIndex]="999"
+      >
+        <!-- Slot for tooltip arrow if desired -->
+        <div *ngIf="showTooltip && placement === 'top'" class="chat-popover__content-tooltip-top"></div>
+        <ng-container *ngTemplateOutlet="popoverTemplate"></ng-container>
+        <div *ngIf="showTooltip && placement === 'bottom'" class="chat-popover__content-tooltip-bottom"></div>
+      </div>
+      <div
+        *ngIf="disableBackgroundInteraction"
+        class="chat-popover__overlay"
+        style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 998; background: transparent;"
+        (click)="closePopover()"
+      ></div>
+    </ng-container>
+  

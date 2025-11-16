@@ -1,0 +1,14 @@
+.icon {
+    width: 20px;
+    height: 20px;
+    /* background-repeat: no-repeat; */
+    justify-content: center;
+    display: inline-block;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    background-color: #a1a1a1;
+  }

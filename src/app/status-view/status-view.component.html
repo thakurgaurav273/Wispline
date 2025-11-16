@@ -1,0 +1,13 @@
+<div class="status-info">
+    <span class="timestamp">
+      {{ message?.getSentAt() * 1000 | date: 'h:mm a' }}
+    </span>
+
+    <div *ngIf="isOutgoing" class="receipt-icons">
+      <ng-container [ngSwitch]="receiptStatus">
+        <div *ngSwitchCase="'sent'" class="tick"><app-icon iconUrl="assets/status_sent.svg" width="15px" height="15px"></app-icon></div>
+        <div *ngSwitchCase="'delivered'" class="tick"><app-icon iconUrl="assets/status_delivered.svg" width="15px" height="15px"></app-icon></div>
+        <div *ngSwitchCase="'read'" class="tick read"><app-icon iconUrl="assets/status_read.svg" color="white" width="15px" height="15px"></app-icon></div>
+      </ng-container>
+    </div>
+  </div>

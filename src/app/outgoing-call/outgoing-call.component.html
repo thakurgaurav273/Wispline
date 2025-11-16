@@ -1,0 +1,77 @@
+<!-- <div *ngIf="callObject" class="outgoing-call-overlay">
+    <div class="outgoing-call-container">
+      <div class="background-pattern"></div>
+  
+      <div class="call-status">
+        <h3 class="status-text">Calling...</h3>
+        <p class="call-type">Outgoing Group Call</p>
+      </div>
+  
+      <div class="caller-avatar-section">
+        <div class="avatar-container">
+          <img [src]="callObject!.getCallInitiator().getAvatar()" class="caller-avatar" alt="Caller">
+          <div class="status-indicator">
+            <div class="pulse-ring"></div>
+            <div class="pulse-ring delay-1"></div>
+            <div class="pulse-ring delay-2"></div>
+          </div>
+        </div>
+        <h2 class="caller-name">{{callObject!.getCallInitiator()!.getName()}}</h2>
+        <p class="group-info">{{callObject!.getCallReceiver()!.getName()}}</p>
+      </div>
+  
+      <div class="call-controls">
+        <button class="control-btn mute-btn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+            <path d="M12 19v4" />
+            <path d="M8 23h8" />
+          </svg>
+        </button>
+  
+        <button class="control-btn end-call-btn" (click)="cancelCall()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+            <path d="M18 8l-8 8" />
+            <path d="M10 8l8 8" />
+          </svg>
+        </button>
+  
+        <button class="control-btn speaker-btn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
+          </svg>
+        </button>
+      </div>
+  
+      <div class="connection-info">
+        <div class="connection-dots">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+        <p class="connection-text">Connecting...</p>
+      </div>
+    </div>
+  </div> -->
+
+
+
+
+<div *ngIf="callObject" class="outgoing-call-overlay">
+  <div class="call-container">
+    <div class="user-details">
+      <h1 class="caller-name">{{callObject!.getCallInitiator()!.getName()}}</h1>
+      <p class="call-status">Calling...</p>
+      <app-avatar [avatarStyle]="{height: 150, width: 150}" [avatarUrl]="callObject!.getCallInitiator().getAvatar()"
+        [name]="callObject!.getCallInitiator()!.getName()"></app-avatar>
+    </div>
+    <button class="end-call-btn" (click)="cancelCall()">
+      <app-icon iconUrl="assets/call_end.svg" color="white" hoverColor="white"></app-icon>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,198 @@
+/* delete conversation modal */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  z-index: 99999;
+  animation: overlayFade 0.3s ease forwards;
+}
+
+.modal-card {
+  background: var(--chat-background-color-01);
+  border-radius: 16px;
+  padding: 32px 24px;
+  max-width: 330px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  transform: translateY(-20px);
+  opacity: 0;
+  animation: cardSlideIn 0.3s ease forwards;
+}
+
+.modal-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  color: #f97316;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  color: var(--chat-text-primary-color);
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.modal-text {
+  font-size: 1rem;
+  color: var(--chat-text-primary-color);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.modal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.delete-btn {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #ffffff;
+}
+
+.delete-btn:hover {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.5);
+}
+
+.cancel-btn {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.cancel-btn:hover {
+  background: #e2e8f0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(100, 116, 139, 0.3);
+}
+
+.btn-icon {
+  font-size: 1.2rem;
+  color: white;
+}
+
+/* Animations */
+@keyframes overlayFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes cardSlideIn {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* delete success toast */
+
+.toast-container {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #ffffff;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 999999;
+  animation: slideInRight 0.4s ease forwards;
+}
+
+.toast-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.toast-icon {
+  font-size: 20px;
+}
+
+.toast-message {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.toast-close {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.toast-close:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media screen and (max-width: 760px) {
+
+  .modal-card {
+    width: 70%;
+  }
+
+  .modal-icon {
+    font-size: 38px;
+    margin-bottom: 5px;
+  }
+
+  .modal-title {
+    margin: 0 0 10px 0;
+    font-size: 20px;
+  }
+
+  .modal-text {
+    font-size: 16px;
+  }
+}

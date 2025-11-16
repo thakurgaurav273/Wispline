@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="content-header-wrapper">
+        <div class="header">
+            <button class="back-btn" (click)="goBack()"><app-icon iconUrl="assets/back.svg"
+                    [color]="'--chat-text-primary-color'"></app-icon></button>
+            <h2>Users</h2>
+        </div>
+
+        <input type="text" placeholder="Search" [(ngModel)]="searchTerm" class="search-box" />
+
+        <app-users-shimmer *ngIf="loading" [itemCount]="14" [shouldShowStatus]="false" [avatarStyle]="{
+            height: 35,
+            width: 35,
+        }"></app-users-shimmer>
+
+        <div class="users-container" *ngIf="!loading">
+            <div *ngFor="let user of filteredUsers" class="user-row" (click)="toggleSelection(user.getUid())">
+                <div class="avatar">
+                    <app-avatar [avatarUrl]="user.getAvatar()" [name]="user.getName()"></app-avatar>
+                </div>
+                <span class="name">{{ user.getName() }}</span>
+                <label class="custom-checkbox">
+                    <input type="checkbox" [checked]="isSelected(user.getUid())"
+                        (change)="toggleSelection(user.getUid())" />
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <button class="add-btn" (click)="addMembers()">Add Members</button>
+</div>

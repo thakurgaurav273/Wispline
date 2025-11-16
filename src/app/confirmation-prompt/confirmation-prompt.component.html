@@ -1,0 +1,28 @@
+<div class="modal-overlay" *ngIf="showBan || showDeleteChat || showLeaveGroup">
+    <div class="modal-card">
+      <div class="modal-icon">⚠️</div>
+      <h2 class="modal-title">{{title}}</h2>
+      <p class="modal-text">
+        {{modalText}}<br>
+        <strong>This action cannot be undone.</strong>
+      </p>
+      <div class="modal-actions">
+        <button class="modal-btn delete-btn" (click)="confirmation()">
+          <!-- <span class="btn-icon"><app-icon iconUrl="assets/delete_icon.svg" color="white" height="24px" width="24px"></app-icon></span> -->
+          Confirm
+        </button>
+        <button class="modal-btn cancel-btn" (click)="cancelDelete()">
+          <span class="btn-icon">✖️</span>
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="toast-container" *ngIf="showSuccessToast">
+    <div class="toast-content">
+      <span class="toast-icon">✅</span>
+      <span class="toast-message">Conversation deleted successfully!</span>
+      <button class="toast-close" (click)="closeToast()">✖️</button>
+    </div>
+  </div>

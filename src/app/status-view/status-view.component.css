@@ -1,0 +1,23 @@
+.status-info {
+    display: flex;
+    gap: 6px;
+    font-size: 12px;
+    justify-content: end;
+}
+
+.tick {
+    display: flex;
+    justify-content: end;
+    color: #999;
+
+}
+
+.tick.read {
+    color: #4fc3f7;
+}
+
+.receipt-icons{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}

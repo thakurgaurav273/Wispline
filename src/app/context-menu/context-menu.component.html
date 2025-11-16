@@ -1,0 +1,43 @@
+<div class="context-menu">
+    <div class="context-menu__top">
+      <button
+        *ngFor="let item of getTopMenu()"
+        class="context-menu__button"
+        (click)="handleOptionClick(item)"
+        [title]="item.title"
+      >
+        <app-icon [iconUrl]="item.iconURL!" height="16px" width="16px" [color]="'var(--chat-text-color-primary)'"></app-icon>
+        <!-- <img [src]="item.iconURL" class="context-menu__icon" [alt]="item.title" /> -->
+      </button>
+  
+      <!-- More (3-dot) button -->
+      <button
+        *ngIf="getSubMenu().length"
+        #moreButtonRef
+        class="context-menu__button"
+        (click)="toggleSubMenu()"
+        [title]="moreIconHoverText"
+      >
+        ⋮
+      </button>
+    </div>
+  
+    <!-- Submenu -->
+    <div
+      #subMenuRef
+      class="context-menu__submenu"
+      [ngStyle]="positionStyle"
+      [hidden]="!showSubMenu"
+    >
+      <button
+        *ngFor="let option of getSubMenu()"
+        class="context-menu__submenu-item"
+        (click)="handleOptionClick(option)"
+      >
+        <!-- <app-icon [iconUrl]="option.iconURL!" [color]="'white'"></app-icon> -->
+        <app-icon class="context-menu__icon" [iconUrl]="option.iconURL!" height="16px" width="16px" [color]="'var(--chat-text-color-primary)'"></app-icon>
+        <span>{{ option.title }}</span>
+      </button>
+    </div>
+  </div>
+  

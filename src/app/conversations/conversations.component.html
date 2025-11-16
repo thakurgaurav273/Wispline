@@ -1,0 +1,98 @@
+<div class="conversations-list" *ngIf="user">
+    <div class="conversations-header">
+        <p class="conversations-list-title">{{ title | titlecase }}</p>
+        <button (click)="showMenuPopover = !showMenuPopover" style="background-color: transparent; border: 0;">
+            <img src="assets/vertical.svg" alt="menu-icon" height="20px" width="20px" />
+        </button>
+        <div *ngIf="showMenuPopover" (clickOutside)="showMenuPopover = false" class="menu-popover">
+            <div style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
+                <div style="display: flex; align-items: center; gap: 6px;" class="left-profile-container">
+                    <app-avatar [avatarUrl]="user.getAvatar()" [name]="user!.getName()" [avatarStyle]="{
+                        height: 30,width:30
+                    }"></app-avatar>
+                    <p style="font-weight: 600; font-size: 16px; margin: 0;">{{ user.getName() }}</p>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <button class="item" (click)="logout()"
+                    style="background: transparent; border: none; display: flex; align-items: center; gap: 10px; width: 100%; padding: 8px 10px; cursor: pointer; transition: background 0.2s;"
+                    onmouseover="this.style.backgroundColor='#f0f0f0'"
+                    onmouseout="this.style.backgroundColor='transparent'">
+                    <app-icon [iconUrl]="'assets/logout.svg'" color="red"></app-icon>
+                    <span style="font-size: 15px; color: red;">Logout</span>
+                </button>
+
+                <button class="item"
+                    style="background: transparent; border: none; display: flex;gap: 10px; width: 100%; padding: 8px 10px; cursor: pointer; transition: background 0.2s;"
+                    onmouseover="this.style.backgroundColor='#f0f0f0'"
+                    onmouseout="this.style.backgroundColor='transparent'">
+                    <app-icon [iconUrl]="'assets/start_chat.svg'"></app-icon>
+                    <span style="font-size: 15px;">Create Conversation</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div #scrollContainer class="conversations-container" (scroll)="onScroll()">
+        @for (item of list; track $index; let i = $index) {
+        <div [attr.key]="i" class="chat-list__item-wrapper" (mouseenter)="onMouseEnter(item)"
+            (mouseleave)="onMouseLeave()"
+            [ngClass]="selectedConversation?.getConversationId() === item.getConversationId() ? 'user-selected' : ''"
+            (click)="handleConversationClick(item)">
+            <div class="chat-leading-view">
+                <app-avatar [avatarUrl]="getAvatar(item)" [name]="getName(item)"></app-avatar>
+            </div>
+            <div class="main-list-item">
+                <div class="title-view">
+                    {{ getName(item)}}
+                </div>
+                <div class="subtitle-view">
+                    <app-icon *ngIf="shouldShowReceiptIcon(item.getLastMessage())"
+                        [iconUrl]="getReceiptStatus(item.getLastMessage())" class="receipt-icon"></app-icon>
+                    <p class="subtitle-text" [innerHTML]="getSubtitleView(item)"></p>
+                </div>
+            </div>
+            <div class="trailing-view" *ngIf="hoveredItemId !== item.getConversationId()">
+                {{ item.getLastMessage()?.getSentAt() * 1000 | date }}
+                <div class="unread-badge" *ngIf="item.getUnreadMessageCount() > 0 ">
+                    <p class="count">{{item.getUnreadMessageCount()}}</p>
+                </div>
+            </div>
+            <div class="hover-options" *ngIf="hoveredItemId === item.getConversationId()">
+                <!-- First option button -->
+                <button class="option-btn" *ngIf="options.length > 0"
+                    (click)="handleOptionClick(options[0], item, $event)">
+                    <app-icon color="red" hoverColor="red" [iconUrl]="options[0].iconURL" height="25px"
+                        width="25px"></app-icon>
+                </button>
+
+                <!-- 3-dot menu if there are more than one option -->
+                <div class="more-options-container" *ngIf="options.length > 1">
+                    <button class="option-btn more-options-btn" (click)="toggleMoreOptions(item, $event)">
+                        <app-icon [iconUrl]="'assets/vertical.svg'" height="22px" width="22px"></app-icon>
+                    </button>
+
+                    <!-- Dropdown -->
+                    <div class="options-dropdown" *ngIf="isMoreOptionsOpen(item)">
+                        <button *ngFor="let option of options.slice(1)"
+                            (click)="handleOptionClick(option, item, $event)" class="dropdown-item">
+                            <img [src]="option.iconURL" class="option-icon" 
+                            alt="dropdown-icon"
+                            />
+                            <span>{{ option.title }}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+        <div *ngIf="loading && list.length !==0" class="loader-container">
+            <div class="loader-spinner"></div>
+        </div>
+        <app-shimmer-chat-list 
+        *ngIf="loading && list.length === 0" 
+        [itemCount]="12">
+      </app-shimmer-chat-list>
+    </div>
+</div>
+
+<app-confirmation-prompt *ngIf="showDeleteConversation"></app-confirmation-prompt>

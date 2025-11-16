@@ -1,0 +1,67 @@
+<div class="home-container" [class.mobile]="isMobileView()" data-theme="theme">
+    <!-- Sidebar -->
+    <div class="sidebar" *ngIf="!isMobileView() || !(chatWithGroup || chatWithUser)">
+        <div class="sidebar-content">
+            <div *ngIf="selectedTab === 'chats'" class="chats-list">
+                <app-conversations></app-conversations>
+            </div>
+            <div *ngIf="selectedTab === 'users'" class="users-list">
+                <app-list></app-list>
+            </div>
+            <div *ngIf="selectedTab === 'calls'" class="calls-list"></div>
+            <div *ngIf="selectedTab === 'groups'" class="groups-list">
+                <app-groups></app-groups>
+            </div>
+        </div>
+
+        <div class="sidebar-tab-bar">
+            <button class="tab-button" [class.active]="selectedTab === 'chats'" (click)="onTabChange('chats')">
+                <app-icon iconUrl="assets/chats.svg" hoverColor="var(--chat-primary-color)" [color]=" selectedTab === 'chats' ? 'var(--chat-primary-color)' : '#A1A1A1'" height="30px" width="30px"></app-icon>
+                <span>Chats</span>
+            </button>
+            <button class="tab-button" [class.active]="selectedTab === 'users'" (click)="onTabChange('users')">
+                <app-icon iconUrl="assets/users.svg" hoverColor="var(--chat-primary-color)" [color]=" selectedTab === 'users' ? 'var(--chat-primary-color)' : '#A1A1A1'" height="30px" width="30px"></app-icon>
+                <span>Users</span>
+            </button>
+            <button class="tab-button" [class.active]="selectedTab === 'groups'" (click)="onTabChange('groups')">
+                <app-icon iconUrl="assets/groups.svg" hoverColor="var(--chat-primary-color)" [color]=" selectedTab === 'groups' ? 'var(--chat-primary-color)' : '#A1A1A1'" height="30px" width="30px"></app-icon>
+                <span>Groups</span>
+            </button>
+            <button class="tab-button" [class.active]="selectedTab === 'calls'" (click)="onTabChange('calls')">
+                <app-icon iconUrl="assets/calls.svg" hoverColor="var(--chat-primary-color)" [color]=" selectedTab === 'calls' ? 'var(--chat-primary-color)' : '#A1A1A1'" height="30px" width="30px"></app-icon>
+                <span>Calls</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="main-content" *ngIf="!isMobileView() || (chatWithGroup || chatWithUser)">
+        <!-- Welcome Screen -->
+        <div *ngIf="!(chatWithGroup || chatWithUser)" class="welcome-screen">
+            <div class="welcome-icon"><img src="assets/emptyStateIconChat.svg" alt="empty-state"/></div>
+            <h2>Welcome to your Conversations</h2>
+            <p>Select a chat from the list to start exploring your messages or begin a new conversation</p>
+        </div>
+
+        <!-- Messages Component -->
+        <div class="messages" *ngIf="chatWithGroup || chatWithUser">
+            <div class="messages-content">
+                <div class="message-header-wrapper">
+                    <app-message-header></app-message-header>
+                </div>
+                <div class="message-list-wrapper">
+                    <app-message-list></app-message-list>
+                </div>
+                <div class="message-composer-wrapper">
+                    <app-message-composer></app-message-composer>
+                </div>
+            </div>
+            <div class="details-compoenent" *ngIf="showDetails">
+                <app-details></app-details>
+            </div>
+            <div class="thread-replies" *ngIf="showThreadReply">
+                <app-thread-replies></app-thread-replies>
+            </div>
+        </div>
+    </div>
+</div>

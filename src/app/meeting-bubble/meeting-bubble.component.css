@@ -1,0 +1,46 @@
+.meeting-bubble-wrapper{
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border-radius: 12px;
+}
+
+.join-meeting-button{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    color: white;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px 20px;
+    box-sizing: border-box;
+}
+
+.time-stamp{
+    font-size: 12px;
+}
+
+.meeting-bubble-detail-wrapper{
+    display: flex;
+    gap: 10px;
+    padding: 12px;
+    box-sizing: border-box;
+    color: white;
+    font-size: 14px;
+}
+
+.separator{
+    background-color: #7965db;
+    height: 1px;
+    width: 100%;
+}
+.call-icon{
+    background-color: white;
+    border-radius: 50%;
+    height: 35px;
+    width: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

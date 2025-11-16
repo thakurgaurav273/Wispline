@@ -1,0 +1,88 @@
+<div class="details-component-wrapper" *ngIf="(user || group) && showDetailsPage">
+    <div class="details-header-view">
+        <div class="detils-title">{{title}}</div>
+        <app-icon iconUrl="assets/close.svg" color="var(--chat-text-primary-color)" hoverColor="var(--chat-primary-color)" height="24px" width="24px"
+            (click)="onClose()"></app-icon>
+    </div>
+    <div class="details-content-container">
+        <div class="avatar-container">
+            <app-avatar *ngIf="user || group" [avatarStyle]="{ height: 120, width: 120, fontSize: '28px' }"
+                [avatarUrl]="user?.getAvatar() ?? group?.getIcon()"
+                [name]="user?.getName() ?? group?.getName() ?? ''"></app-avatar>
+            <div class="status-message">
+                <div class="name-container">{{user?.getName() ?? group?.getName()}}</div>
+                <div class="subtitle-container">{{user ? user.getStatus() : group?.getMembersCount() + ' Members'}}
+                </div>
+            </div>
+        </div>
+        <div class="side-component-content__action">
+            <!-- Show actions for user -->
+            <ng-container *ngIf="user">
+                <div class="option-list-item" (click)="handleBlockUser()">
+                    <app-icon iconUrl="assets/block.svg" color="red" height="22px" width="22px"></app-icon>
+                    <p class="option-title block">{{user.getBlockedByMe() === false ? 'Block User' : 'Unblock User'}}
+                    </p>
+                </div>
+                <div class="option-list-item" (click)="handleDeleteChatCallback()">
+                    <app-icon iconUrl="assets/delete_icon.svg" color="red" height="22px" width="22px"></app-icon>
+                    <p class="option-title deleteChat">Delete Chat</p>
+                </div>
+            </ng-container>
+
+            <!-- Show actions for group -->
+            <ng-container *ngIf="group">
+                <div class="action-buttons-wrapper">
+                    <div class="option-list-item" (click)="setShowAddMembers(true)"
+                        *ngIf="group.getScope() === 'admin'">
+                        <app-icon iconUrl="assets/addMembers.svg" color="var(--chat-primary-color)" height="22px" width="22px"></app-icon>
+                        <p class="addMembers">Add Members</p>
+                    </div>
+
+                    <div class="option-list-item" (click)="handleDeleteChatCallback()">
+                        <app-icon iconUrl="assets/delete_icon.svg" color="red" height="22px" width="22px"></app-icon>
+                        <p class="option-title deleteChat">Delete Chat</p>
+                    </div>
+
+                    <div class="option-list-item" (click)="handleLeaveGroup()">
+                        <app-icon iconUrl="assets/logout.svg" color="red" height="22px" width="22px"></app-icon>
+                        <p class="option-title deleteChat">Leave Group</p>
+                    </div>
+
+
+                    <div class="option-list-item" (click)="handleDeleteChatCallback()"
+                        *ngIf="group.getScope() === 'admin'">
+                        <app-icon iconUrl="assets/delete_icon.svg" color="red" height="22px" width="22px"></app-icon>
+                        <p class="option-title deleteChat">Delete and Exit</p>
+                    </div>
+                </div>
+
+                <div class="tabs-wrapper" *ngIf="group.getScope() === 'admin' || group.getScope() === 'moderator'">
+                    <div class="tabs-container">
+                        <div class="tab-item" [class.active]="activeTab === 'members'"
+                            (click)="setActiveTab('members')">
+                            View Members
+                        </div>
+                        <div class="tab-item" [class.active]="activeTab === 'banned'" (click)="setActiveTab('banned')">
+                            Banned Members
+                        </div>
+                    </div>
+                </div>
+                <!-- Below content is optional: conditionally show tab content -->
+                <div *ngIf="activeTab === 'members'">
+                    <app-view-members></app-view-members>
+                </div>
+
+                <div *ngIf="activeTab === 'banned'">
+                    <app-banned-members></app-banned-members>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<!-- Add Members Overlay -->
+<div *ngIf="showAddMembers" class="overlay">
+    <app-add-members (back)="onBackClick()"></app-add-members>
+</div>
+
+<app-confirmation-prompt *ngIf="showDeleteConversation"></app-confirmation-prompt>

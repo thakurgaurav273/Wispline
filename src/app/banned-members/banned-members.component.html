@@ -1,0 +1,25 @@
+<div class="members-container">
+    <app-users-shimmer *ngIf="loading" [itemCount]="8" [shouldShowStatus]="false" [avatarStyle]="{
+        height: 35,
+        width: 35,
+    }"></app-users-shimmer>
+    <div *ngIf="!loading && members.length === 0" class="empty-view">
+        <p> No Banned Members</p>
+    </div>
+    <div *ngIf="!loading">
+        <div class="member" *ngFor="let member of members">
+            <div style="position: relative;">
+                <app-avatar [avatarUrl]="member.getAvatar()" [name]="member.getName()" [avatarStyle]="{
+                    height: 35,
+                    width: 35
+                }"></app-avatar>
+                <div class="online-dot" *ngIf="member.getStatus() === 'online'" title="Online"></div>
+            </div>
+            <div class="info">
+                <div class="name">{{ member.getName()}}</div>
+            </div>
+            <div *ngIf="group?.getScope() === 'admin' || group?.getScope() === 'moderator'" (click)="unbanUser(member.getUid())">
+                <app-icon [iconUrl]="'assets/close.svg'"></app-icon>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,89 @@
+<!-- chat-media-recorder.component.html -->
+<div class="chat">
+    <div *ngIf="hasError" class="chat-media-recorder__error">
+      <div class="chat-media-recorder__error-icon-wrapper">
+        <div class="chat-media-recorder__error-icon"></div>
+      </div>
+      <div class="chat-media-recorder__error-content">
+        <div class="chat-media-recorder__error-content-title">Record</div>
+        <div class="chat-media-recorder__error-content-subtitle">Error</div>
+      </div>
+    </div>
+    
+    <div class="chat-media-recorder" [ngStyle]="{'border-radius': hasError ? '0 0 var(--chat-radius-4) var(--chat-radius-4)' : ''}">
+      <ng-container *ngIf="!mediaPreviewUrl; else recordedTemplate">
+        <div class="chat-media-recorder__recording" [ngStyle]="{'border-radius': hasError ? '0 0 var(--chat-radius-4) var(--chat-radius-4)' : ''}">
+          <ng-container *ngIf="isRecording; else notRecordingTemplate">
+            <div class="chat-media-recorder__recording-preview-recording">
+              <div class="chat-media-recorder__recording-preview-recording-icon"></div>
+            </div>
+          </ng-container>
+          <ng-template #notRecordingTemplate>
+            <ng-container *ngIf="isPaused; else disabledTemplate">
+              <div class="chat-media-recorder__recording-preview-paused">
+                <div class="chat-media-recorder__recording-preview-paused-icon"></div>
+                <div class="chat-media-recorder__recording-preview-duration">{{ formatTime(counter) }}</div>
+              </div>
+            </ng-container>
+            <ng-template #disabledTemplate>
+              <div class="chat-media-recorder__recording-preview-disabled">
+                <div class="chat-media-recorder__recording-preview-disabled-icon"></div>
+              </div>
+            </ng-template>
+          </ng-template>
+          <div class="chat-media-recorder__recording-preview-duration">{{ formatTime(counter) }}</div>
+
+          <div class="chat-media-recorder__recording-control">
+            <ng-container *ngIf="isRecording; else notRecordingControls">
+              <div class="chat-media-recorder__recording-control-delete" (click)="handleCloseRecording()">
+                <div class="chat-media-recorder__recording-control-delete-icon"></div>
+              </div>
+              <ng-container *ngIf="isPaused; else pauseControl">
+                <div class="chat-media-recorder__recording-control-record" (click)="handleStartRecording()">
+                  <div class="chat-media-recorder__recording-control-record-icon"></div>
+                </div>
+              </ng-container>
+              <ng-template #pauseControl>
+                <div class="chat-media-recorder__recording-control-pause" (click)="handlePauseRecording()">
+                  <div class="chat-media-recorder__recording-control-pause-icon"></div>
+                </div>
+              </ng-template>
+              <div class="chat-media-recorder__recording-control-stop" (click)="handleStopRecording()">
+                <div class="chat-media-recorder__recording-control-stop-icon"></div>
+              </div>
+            </ng-container>
+  
+            <ng-template #notRecordingControls>
+              <div class="chat-media-recorder__recording-control-delete" (click)="handleCloseRecording()">
+                <div class="chat-media-recorder__recording-control-delete-icon"></div>
+              </div>
+              <div class="chat-media-recorder__recording-control-record" [class.chat-media-recorder__recording-control-error]="hasError" (click)="handleStartRecording()">
+                <div class="chat-media-recorder__recording-control-record-icon"></div>
+              </div>
+              <div class="chat-media-recorder__recording-control-stop" (click)="handleStopRecording()">
+                <div class="chat-media-recorder__recording-control-stop-icon"></div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </ng-container>
+  
+      <ng-template #recordedTemplate>
+        <div class="chat-media-recorder__recorded">
+          <app-cometchat-audio-bubble *ngIf="mediaPreviewUrl" [src]="mediaPreviewUrl" [isSentByMe]="true"></app-cometchat-audio-bubble>
+          <div class="chat-media-recorder__recorded-control">
+            <div class="chat-media-recorder__recorded-control-delete" (click)="handleCloseRecording()">
+              <div class="chat-media-recorder__recorded-control-delete-icon"></div>
+            </div>
+            <div class="chat-media-recorder__recorded-control-send" (click)="handleSubmitRecording()">
+              <div class="chat-media-recorder__recorded-control-send-icon"></div>
+            </div>
+            <div class="chat-media-recorder__recorded-control-record" (click)="handleStartRecording()">
+              <div class="chat-media-recorder__recorded-control-record-icon"></div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  

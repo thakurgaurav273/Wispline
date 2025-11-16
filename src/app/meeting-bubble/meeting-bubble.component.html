@@ -1,0 +1,15 @@
+<div class="meeting-bubble-wrapper">
+    <div class="meeting-bubble-detail-wrapper">
+        <div class="call-icon">
+            <app-icon iconUrl="assets/phone_outgoing_no_fill.svg" [color]="'var(--chat-primary-color)'"></app-icon>
+        </div>
+        <div class="call-type-wrapper">
+            {{message?.getData().customData.callType === 'audio' ? 'Voice' : 'Video'}} Call
+            <p class="time-stamp">{{message!.getSentAt()*1000 | date: 'dd MMM, hh:mm a'}}</p>
+        </div>
+    </div>
+    <div class="separator"></div>
+    <div class="join-meeting-button" (click)="handleMeetingJoin()">
+        Join
+    </div>
+</div>
